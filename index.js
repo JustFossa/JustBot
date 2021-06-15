@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const Discord = require('discord.js');
-
+const express = require('express');
+const app = express();
 // Adding date to logs
 (() => {
 	process.on('uncaughtException', err => {
@@ -22,6 +23,16 @@ const Discord = require('discord.js');
 	intercept(process.stdout, chalk.green);
 	intercept(process.stderr, chalk.red);
 })();
+
+var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+	
+	app.listen(server_port, server_host, function() {
+		console.log('Listening on port %d', server_port);
+	});
+		
+	
+	
 
 // modules
 global.Discord = Discord;
