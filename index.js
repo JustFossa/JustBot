@@ -39,7 +39,7 @@ var server_host = process.env.YOUR_HOST || '0.0.0.0';
 function startKeepAlive() {
     setInterval(function() {
         var options = {
-            host: 'fonok-tools.tk',
+            host: 'fonok-tools.herokuapp.com',
             port: process.env.PORT || 80,
             path: '/'
         };
@@ -55,7 +55,7 @@ function startKeepAlive() {
         }).on('error', function(err) {
             console.log("Error: " + err.message);
         });
-    }, 20 * 60 * 1000); // load every 20 minutes
+    }, 10 * 60 * 1000); // load every 10 minutes
 }
 
 startKeepAlive();
