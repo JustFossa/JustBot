@@ -55,7 +55,7 @@ function startKeepAlive() {
         }).on('error', function(err) {
             console.log("Error: " + err.message);
         });
-    }, 10 * 60 * 1000); // load every 10 minutes
+    }, 5 * 60 * 1000); // load every 10 minutes
 }
 
 startKeepAlive();
