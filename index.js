@@ -37,13 +37,13 @@ try {
 }
 
 const config = Object.assign({}, {
-	prefix: '!',
+	prefix: 'f!',
 	collections: ['commands', 'aliases'],
 	handlers: ['event', 'login', 'database', 'utils', 'prototypes', 'command'],
 	commandGroups: [
 		'bot-owner', 'clash-of-clans', 'custom-commands', 'economy', 'modmail', 'giveaway',
 		'emojis', 'info', 'invites', 'moderation', 'roles', 'search', 'suggestions',
-		'utility', 'welcome', 'clash-royale', 'brawl-stars', 'youtube', 'ticket', 'help', 'support-server'
+		'utility', 'welcome', 'clash-royale', 'brawl-stars', 'ticket', 'help', 'support-server'
 	],
 	eventGroups: [
 		'command', 'logging', 'prefix', 'invites', 'kick', 'ticket', 'modmail',
@@ -51,8 +51,8 @@ const config = Object.assign({}, {
 	],
 	utils: ['settings', 'log', 'automod', 'temp', 'mute', 'invites', 'samePerson',
 		'userBlacklist', 'guildBlacklist', 'lock', 'giveway', 'random', 'getResponse',
-		'table', 'wrap', 'channelBlock', 'remindScheduler', 'clanLogger', 'youtube', 'categoryBlock'],
-	owners: { 'Koni': '578678204890349594'},
+		'table', 'wrap', 'channelBlock', 'remindScheduler', 'clanLogger', 'categoryBlock'],
+	owners: { 'Egyptský Tanečník': '729224025401851915'},
 	color: 9677018,
 	blacklists: true,
 	hold: new Set(),
@@ -87,7 +87,7 @@ const client = new Discord.Client({
 	messageSweepInterval: 300,
 	ws: { intents: Discord.Intents.ALL },
 	partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
-	presence: { activity: { name: '!invite || !help', type: 'PLAYING' }, status: 'online' }
+	presence: { activity: { name: 'f!help', type: 'PLAYING' }, status: 'idle' }
 });
 
 

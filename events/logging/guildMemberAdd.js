@@ -69,10 +69,10 @@ function getInvite(client, member, inviter_, settings) {
 					embed: {
 						color: global.config.color,
 						title: '**Member joined**',
-						description: `<:members:717436253364289667> Member:\n\`${member.user.tag}\`\n\n` +
-							`<:invite:717436253871538318> Inviter:\n\`${inviter.tag}\`\n\n` +
-							`<:pin:717436253728931840> Times used:\n\`${invite.uses}\`\n\n` +
-							`<:timer:717436253762486302> Invite created on:\n\`${invite.createdAt ? invite.createdAt.toDateString() : 'None'}\``
+						description: ` Member:\n\`${member.user.tag}\`\n\n` +
+							` Inviter:\n\`${inviter.tag}\`\n\n` +
+							`Times used:\n\`${invite.uses}\`\n\n` +
+							` Invite created on:\n\`${invite.createdAt ? invite.createdAt.toDateString() : 'None'}\``
 					}
 				});
 			}
