@@ -2,6 +2,7 @@ const chalk = require('chalk');
 const Discord = require('discord.js');
 const express = require('express');
 const app = express();
+var http = require("http");
 // Adding date to logs
 (() => {
 	process.on('uncaughtException', err => {
@@ -30,7 +31,34 @@ var server_host = process.env.YOUR_HOST || '0.0.0.0';
 	app.listen(server_port, server_host, function() {
 		console.log('Listening on port %d', server_port);
 	});
-		
+
+
+
+	var http = require('http'); //importing http
+
+function startKeepAlive() {
+    setInterval(function() {
+        var options = {
+            host: 'fonok-tools.tk',
+            port: process.env.PORT || 80,
+            path: '/'
+        };
+        http.get(options, function(res) {
+            res.on('data', function(chunk) {
+                try {
+                    // optional logging... disable after it's working
+                    console.log("HEROKU RESPONSE: " + chunk);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', function(err) {
+            console.log("Error: " + err.message);
+        });
+    }, 20 * 60 * 1000); // load every 20 minutes
+}
+
+startKeepAlive();
 	
 	
 
