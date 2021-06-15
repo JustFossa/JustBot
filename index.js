@@ -25,8 +25,19 @@ var http = require("http");
 	intercept(process.stderr, chalk.red);
 })();
 
-var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
-var server_host = process.env.YOUR_HOST || 'http://fonok-tools.herokuapp.com';
+const path = require('path');
+const port = process.env.PORT || 65000;
+
+app.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/html/index.html'));
+});
+
+app.listen(port, () => {
+    console.log(`Ready!`)
+})
+
+var server_port = process.env.PORT || 65000;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
 	
 	app.listen(server_port, server_host, function() {
 		console.log('Listening on port %d', server_port);
@@ -40,7 +51,7 @@ function startKeepAlive() {
     setInterval(function() {
         var options = {
             host: 'http://fonok-tools.herokuapp.com',
-            port: process.env.PORT || 8080,
+            port: process.env.PORT || 65000,
             path: '/'
         };
         http.get(options, function(res) {
@@ -62,16 +73,7 @@ startKeepAlive();
 
 
 
-const path = require('path');
-const port = process.env.PORT || 8080;
 
-app.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
-});
-
-app.listen(port, () => {
-    console.log(`Ready!`)
-})
 	
 	
 
