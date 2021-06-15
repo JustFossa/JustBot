@@ -34,7 +34,7 @@ var server_host = process.env.YOUR_HOST || '0.0.0.0';
 
 
 
-	var http = require('http'); //importing http
+
 
 function startKeepAlive() {
     setInterval(function() {
