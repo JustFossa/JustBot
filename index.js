@@ -25,16 +25,6 @@ var http = require("http");
 	intercept(process.stderr, chalk.red);
 })();
 
-const path = require('path');
-const port = process.env.PORT || 65000;
-
-app.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/html/index.html'));
-});
-
-app.listen(port, () => {
-    console.log(`Ready!`)
-})
 
 var server_port = process.env.PORT || 65000;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
@@ -44,37 +34,6 @@ var server_host = process.env.YOUR_HOST || '0.0.0.0';
 	});
 
 
-
-
-
-function startKeepAlive() {
-    setInterval(function() {
-        var options = {
-            host: 'http://fonok-tools.herokuapp.com',
-            port: process.env.PORT || 65000,
-            path: '/'
-        };
-        http.get(options, function(res) {
-            res.on('data', function(chunk) {
-                try {
-                    // optional logging... disable after it's working
-                    console.log("HEROKU RESPONSE: " + chunk);
-                } catch (err) {
-                    console.log(err.message);
-                }
-            });
-        }).on('error', function(err) {
-            console.log("Error: " + err.message);
-        });
-    }, 5 * 60 * 1000); // load every 10 minutes
-}
-
-startKeepAlive();
-
-
-
-
-	
 	
 
 // modules
