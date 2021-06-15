@@ -40,7 +40,7 @@ function startKeepAlive() {
     setInterval(function() {
         var options = {
             host: 'http://fonok-tools.herokuapp.com',
-            port: process.env.PORT || 80,
+            port: process.env.PORT || 8080,
             path: '/'
         };
         http.get(options, function(res) {
@@ -60,8 +60,8 @@ function startKeepAlive() {
 
 startKeepAlive();
 
-const express = require('express');
-const app = express();
+
+
 const path = require('path');
 const port = process.env.PORT || 8080;
 
