@@ -50,7 +50,7 @@ try {
 }
 
 const config = Object.assign({}, {
-	prefix: 'f!',
+	prefix: '>',
 	collections: ['commands', 'aliases'],
 	handlers: ['event', 'login', 'database', 'utils', 'prototypes', 'command'],
 	commandGroups: [
