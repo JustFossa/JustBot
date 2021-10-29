@@ -1,19 +1,27 @@
 {
-  "name": "discord.js-bot-template",
+  "name": "justbot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/bot.js"
   },
-  "author": "kwiatek_123#2256",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustFossa/Discord-BOT.git"
+  },
+  "author": "JustFossa",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustFossa/Discord-BOT/issues"
+  },
+  "homepage": "https://github.com/JustFossa/Discord-BOT#readme",
   "dependencies": {
-    "@discordjs/builders": "^0.6.0",
+    "@discordjs/builders": "^0.7.0",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "discord-api-types": "^0.23.1",
-    "discord.js": "^13.1.0",
-    "dotenv": "^10.0.0",
-    "mongoose": "^6.0.8"
+    "discord-api-types": "^0.24.0",
+    "discord.js": "^13.2.0",
+    "fs": "^0.0.1-security",
+    "mongoose": "^6.0.12"
   }
 }
