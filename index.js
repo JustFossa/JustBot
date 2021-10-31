@@ -1,9 +1,9 @@
 const { Client, Intents, Collection } = require('discord.js');
-const { token } = require('./config.json');
+const {token} = require("./config.json")
 const fs = require('fs')
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
-
+require('dotenv').config()
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
 
@@ -33,7 +33,7 @@ client.on('ready', () => {
     const clientId = "902251614923005953";
     const guildId = "901883411663314954";
 
-    const rest = new REST({ version: "9" }).setToken(token);
+    const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 
     (async () => {
       try {
@@ -77,4 +77,4 @@ for (const file of eventFiles) {
 }
 
 
-client.login(token);
+client.login(process.env.TOKEN);
