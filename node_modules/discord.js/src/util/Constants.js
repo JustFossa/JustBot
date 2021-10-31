@@ -3,7 +3,7 @@
 const Package = (exports.Package = require('../../package.json'));
 const { Error, RangeError, TypeError } = require('../errors');
 
-exports.UserAgent = `DiscordBot (${Package.homepage.split('#')[0]}, ${Package.version}) Node.js/${process.version}`;
+exports.UserAgent = `DiscordBot (${Package.homepage}, ${Package.version}) Node.js/${process.version}`;
 
 exports.WSCodes = {
   1000: 'WS_CLOSE_REQUESTED',
@@ -16,7 +16,7 @@ exports.WSCodes = {
 
 const AllowedImageFormats = ['webp', 'png', 'jpg', 'jpeg', 'gif'];
 
-const AllowedImageSizes = [16, 32, 64, 128, 256, 300, 512, 600, 1024, 2048, 4096];
+const AllowedImageSizes = [16, 32, 56, 64, 96, 128, 256, 300, 512, 600, 1024, 2048, 4096];
 
 function makeImageUrl(root, { format = 'webp', size } = {}) {
   if (!['undefined', 'number'].includes(typeof size)) throw new TypeError('INVALID_TYPE', 'size', 'number');
@@ -35,7 +35,8 @@ function makeImageUrl(root, { format = 'webp', size } = {}) {
  * Options for static Image URLs.
  * @typedef {Object} StaticImageURLOptions
  * @property {string} [format='webp'] One of `webp`, `png`, `jpg`, `jpeg`.
- * @property {number} [size] One of `16`, `32`, `64`, `128`, `256`, `300`, `512`, `600`, `1024`, `2048`, `4096`
+ * @property {number} [size] One of `16`, `32`, `56`, `64`, `96`, `128`, `256`, `300`, `512`, `600`, `1024`, `2048`,
+ * `4096`
  */
 
 // https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints
@@ -124,6 +125,8 @@ exports.Opcodes = {
 exports.Events = {
   RATE_LIMIT: 'rateLimit',
   INVALID_REQUEST_WARNING: 'invalidRequestWarning',
+  API_RESPONSE: 'apiResponse',
+  API_REQUEST: 'apiRequest',
   CLIENT_READY: 'ready',
   APPLICATION_COMMAND_CREATE: 'applicationCommandCreate',
   APPLICATION_COMMAND_DELETE: 'applicationCommandDelete',
@@ -214,7 +217,7 @@ exports.ShardEvents = {
 exports.PartialTypes = keyMirror(['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION']);
 
 /**
- * The type of a websocket message event, e.g. `MESSAGE_CREATE`. Here are the available events:
+ * The type of a WebSocket message event, e.g. `MESSAGE_CREATE`. Here are the available events:
  * * READY
  * * RESUMED
  * * APPLICATION_COMMAND_CREATE
@@ -965,10 +968,17 @@ exports.ApplicationCommandPermissionTypes = createEnum([null, 'ROLE', 'USER']);
  * * PING
  * * APPLICATION_COMMAND
  * * MESSAGE_COMPONENT
+ * * APPLICATION_COMMAND_AUTOCOMPLETE
  * @typedef {string} InteractionType
  * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type}
  */
-exports.InteractionTypes = createEnum([null, 'PING', 'APPLICATION_COMMAND', 'MESSAGE_COMPONENT']);
+exports.InteractionTypes = createEnum([
+  null,
+  'PING',
+  'APPLICATION_COMMAND',
+  'MESSAGE_COMPONENT',
+  'APPLICATION_COMMAND_AUTOCOMPLETE',
+]);
 
 /**
  * The type of an interaction response:
@@ -977,6 +987,7 @@ exports.InteractionTypes = createEnum([null, 'PING', 'APPLICATION_COMMAND', 'MES
  * * DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
  * * DEFERRED_MESSAGE_UPDATE
  * * UPDATE_MESSAGE
+ * * APPLICATION_COMMAND_AUTOCOMPLETE_RESULT
  * @typedef {string} InteractionResponseType
  * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type}
  */
@@ -989,6 +1000,7 @@ exports.InteractionResponseTypes = createEnum([
   'DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE',
   'DEFERRED_MESSAGE_UPDATE',
   'UPDATE_MESSAGE',
+  'APPLICATION_COMMAND_AUTOCOMPLETE_RESULT',
 ]);
 /* eslint-enable max-len */
 
@@ -1101,5 +1113,5 @@ function createEnum(keys) {
  * @property {StickerType} StickerTypes The value set for a sticker's type.
  * @property {VerificationLevel} VerificationLevels The value set for the verification levels for a guild.
  * @property {WebhookType} WebhookTypes The value set for a webhook's type.
- * @property {WSEventType} WSEvents The type of a websocket message event.
+ * @property {WSEventType} WSEvents The type of a WebSocket message event.
  */

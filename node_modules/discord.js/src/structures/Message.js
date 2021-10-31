@@ -45,7 +45,7 @@ class Message extends Base {
      */
     this.deleted = false;
 
-    if (data) this._patch(data);
+    this._patch(data);
   }
 
   _patch(data) {
@@ -424,7 +424,7 @@ class Message extends Base {
   }
 
   /**
-   * The url to jump to this message
+   * The URL to jump to this message
    * @type {string}
    * @readonly
    */
@@ -468,7 +468,7 @@ class Message extends Base {
    * Similar to createReactionCollector but in promise form.
    * Resolves with a collection of reactions that pass the specified filter.
    * @param {AwaitReactionsOptions} [options={}] Optional options to pass to the internal collector
-   * @returns {Promise<Collection<string, MessageReaction>>}
+   * @returns {Promise<Collection<string | Snowflake, MessageReaction>>}
    * @example
    * // Create a reaction collector
    * const filter = (reaction, user) => reaction.emoji.name === '👌' && user.id === 'someId'
@@ -717,14 +717,17 @@ class Message extends Base {
    */
   async react(emoji) {
     if (!this.channel) throw new Error('CHANNEL_NOT_CACHED');
-    emoji = this.client.emojis.resolveIdentifier(emoji);
     await this.channel.messages.react(this.id, emoji);
-    return this.client.actions.MessageReactionAdd.handle({
-      user: this.client.user,
-      channel: this.channel,
-      message: this,
-      emoji: Util.parseEmoji(emoji),
-    }).reaction;
+
+    return this.client.actions.MessageReactionAdd.handle(
+      {
+        user: this.client.user,
+        channel: this.channel,
+        message: this,
+        emoji: Util.resolvePartialEmoji(emoji),
+      },
+      true,
+    ).reaction;
   }
 
   /**
@@ -777,11 +780,22 @@ class Message extends Base {
   }
 
   /**
+   * A number that is allowed to be the duration (in minutes) of inactivity after which a thread is automatically
+   * archived. This can be:
+   * * `60` (1 hour)
+   * * `1440` (1 day)
+   * * `4320` (3 days) <warn>This is only available when the guild has the `THREE_DAY_THREAD_ARCHIVE` feature.</warn>
+   * * `10080` (7 days) <warn>This is only available when the guild has the `SEVEN_DAY_THREAD_ARCHIVE` feature.</warn>
+   * * `'MAX'` Based on the guild's features
+   * @typedef {number|string} ThreadAutoArchiveDuration
+   */
+
+  /**
    * Options for starting a thread on a message.
    * @typedef {Object} StartThreadOptions
    * @property {string} name The name of the new thread
-   * @property {ThreadAutoArchiveDuration} autoArchiveDuration The amount of time (in minutes) after which the thread
-   * should automatically archive in case of no recent activity
+   * @property {ThreadAutoArchiveDuration} [autoArchiveDuration=this.channel.defaultAutoArchiveDuration] The amount of
+   * time (in minutes) after which the thread should automatically archive in case of no recent activity
    * @property {string} [reason] Reason for creating the thread
    */
 
@@ -884,6 +898,14 @@ class Message extends Base {
     }
 
     return equal;
+  }
+
+  /**
+   * Whether this message is from a guild.
+   * @returns {boolean}
+   */
+  inGuild() {
+    return Boolean(this.guildId);
   }
 
   /**
