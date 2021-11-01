@@ -4,7 +4,6 @@ const fs = require('fs')
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 require('dotenv').config()
-
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
 
 client.commands = new Collection()
@@ -49,7 +48,12 @@ client.on('ready', () => {
       }
     })();
 
+  
+
 })
+
+
+
 
 /*
 client.on('interactionCreate', async interaction => {

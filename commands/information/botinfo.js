@@ -9,15 +9,31 @@ module.exports = {
 	.setDescription('Replies with Bot info!'),
 
    async execute(interaction, client) {
-       const botinfo = new MessageEmbed()
+
+    const promises = [
+        client.shard.fetchClientValues('guilds.cache.size'),
+        client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
+    ];
+
+    return Promise.all(promises)
+			.then(results => {
+				const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
+				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
+			
+
+	const botinfo = new MessageEmbed()
             .setTitle(`${client.user.tag}'s Info'`)
             .addField(`\`ID: \``, `\`${client.user.id}\``)
             .addField(`\`Username: \``, `\`${client.user.username} \``)
-            .addField(`\`Dicriminator: \``, `\`${client.user.discriminator}\``)
-            .addField(`\`Websocket latency: \``, `\`${client.ws.ping} \``)
+            .addField(`\`Dicriminator: \``, `\`#${client.user.discriminator}\``)
+            .addField(`\`Websocket latency: \``, `\`${client.ws.ping}ms \``)
+            .addField(`\`Total Guilds: \` `, `\`${totalGuilds}\``)
+            .addField(`\`Total Members: \` `, `\`${totalMembers}\``)
+            
 
-           await interaction.reply({
+            interaction.reply({
                 embeds: [botinfo]
             })
+        })
     }
 }

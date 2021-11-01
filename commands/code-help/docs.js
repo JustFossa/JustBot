@@ -1,5 +1,5 @@
 const {SlashCommandBuilder} = require("@discordjs/builders")
-const { Discord } = require("discord.js")
+const { Discord, MessageEmbed } = require("discord.js")
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = {
@@ -11,14 +11,30 @@ module.exports = {
                         .setRequired(true)),
                 async execute(interaction) {
                 
-                const query = interaction.options.getString("query")
-                const url = `https://djsdocs.sorta.moe/v2/embed?src=stable&q=${encodeURIComponent(query)}`
-                
-                const docfetch = await fetch(url)
-                const embed = await docfetch.json()
-                
-                interaction.reply({
-                embeds: [embed]
-                })
+                    try {
+                        const query = interaction.options.getString("query")
+                        const url = `https://djsdocs.sorta.moe/v2/embed?src=stable&q=${encodeURIComponent(query)}`
+                        
+                        const docfetch = await fetch(url)
+
+                            let embed = await docfetch.json()
+
+        
+                        
+                        
+                        
+                        interaction.reply({
+                        embeds: [embed]
+                        })
+                } catch(err) {
+                    const errembed = new MessageEmbed()
+                    .setTitle("Interaction failed") 
+                    .setDescription("Docs for this query cannot be displayed because output is longer then 1024 characters")
+                    .setColor("RED")
+                    interaction.reply({
+                        embeds: [errembed]
+                    })
                 }
+                    }
+                
             }
