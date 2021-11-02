@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js"
+    "start": "node sharding.js"
   },
   "dependencies": {
     "@discordjs/builders": "^0.8.2",
