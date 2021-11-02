@@ -26,10 +26,13 @@ module.exports = {
                         interaction.reply({
                         embeds: [embed]
                         })
+
+
                 } catch(err) {
                     const errembed = new MessageEmbed()
                     .setTitle("Interaction failed") 
-                    .setDescription("Docs for this query cannot be displayed because output is longer then 1024 characters")
+                    .setDescription("Docs for this query cannot be displayed because of an error")
+                    .addField('`Error: `', `\`${err}\``)
                     .setColor("RED")
                     interaction.reply({
                         embeds: [errembed]
