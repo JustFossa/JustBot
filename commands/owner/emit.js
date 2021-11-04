@@ -15,6 +15,9 @@ module.exports = {
      
      if(interaction.options.getSubcommand() === "guildmemberadd") {
      client.emit("guildMemberAdd", interaction.member)
+     interaction.reply({
+     content: "Event: `guildMemberAdd` was emitted sucessfully"
+     })
      }
    
    }
