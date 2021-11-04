@@ -23,7 +23,7 @@ async execute(member, guild) {
     context.fillText(`Welcome ${member.user.tag} !`, canvas.width / 2.45, canvas.height / 3)
        context.fillStyle = '#ffffff'
        context.font = '25px sans-serif'
-       context.fillText(`You are member N°${member.guild.users.cache.size}`, canvas.width / 2.45, canvas.height / 1.44)
+       context.fillText(`You are member N°${member.guild.members.cache.size}`, canvas.width / 2.45, canvas.height / 1.44)
 
                 context.beginPath();
 
