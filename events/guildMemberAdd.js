@@ -18,13 +18,12 @@ async execute(member, guild) {
 	
 	        context.strokeRect(0, 0, canvas.width, canvas.height);
 
-            context.font = '60px sans-serif';
-
-            // Select the style that will be used to fill the text in
-            context.fillStyle = '#ffffff';
-        
-            // Actually fill the text with a solid color
-            context.fillText(member.user.tag, canvas.width / 2.5, canvas.height / 1.8);
+    context.fillStyle = '#ffffff' // White text
+    context.font = '25px sans-serif'
+    context.fillText(`Welcome ${member.user.tag} !`, canvas.width / 2.45, canvas.height / 3)
+       context.fillStyle = '#ffffff'
+       context.font = '25px sans-serif'
+       context.fillText(`You are member N°${member.guild.users.cache.size}`, canvas.width / 2.45, canvas.height / 1.44)
 
                 context.beginPath();
 
