@@ -4,8 +4,8 @@ module.exports = {
  data: new SlashCommandBuilder()
 	.setName('emit')
 	.setDescription('Emits and Event!')
-	.addSubcommand(command => command.setName("guild MemberAdd")
-	.setDescription("Emits member join event"))
+	.addSubcommand(command => command.setName("guildmemberadd")
+	.setDescription("Emits member join event")),
 
    async execute(interaction, client) {
    
@@ -13,7 +13,7 @@ module.exports = {
      content: "You cant use that"
      }) 
      
-     if(interaction.options.getSubommand() == "guildMemberAdd") {
+     if(interaction.options.getSubcommand() === "guildmemberadd") {
      client.emit("guildMemberAdd", interaction.member)
      }
    
