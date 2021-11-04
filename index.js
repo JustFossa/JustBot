@@ -4,7 +4,7 @@ const fs = require('fs')
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 require('dotenv').config()
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS] })
 
 client.commands = new Collection()
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith('.js'))
@@ -52,26 +52,6 @@ client.on('ready', () => {
 
 })
 
-
-
-
-/*
-client.on('interactionCreate', async interaction => {
-	if(!interaction.isCommand()) {
-		return
-	} else {
-		const command = client.commands.get(interaction.commandName)
-
-		if(!command) return
-		
-		try {
-			await command.execute(interaction, client)
-		} catch (err) {
-			console.log(err)
-		}
-	}
-})
-*/
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
