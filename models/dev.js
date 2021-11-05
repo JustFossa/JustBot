@@ -1,14 +1,8 @@
 const mongoose = require("mongoose")
 
 const dev = new mongoose.Schema({
-        guildId: {
-                type: String,
-                required: true
-        },
-        status: {
-                type: Boolean,
-
-        }
+	      _id: Number,
+        status: String
 })
 
-module.exports = mongoose.model("dev",dev)
+module.exports = mongoose.model("devModel",dev)

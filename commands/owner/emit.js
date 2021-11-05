@@ -9,11 +9,12 @@ module.exports = {
 
    async execute(interaction, client) {
    
-     if(!interaction.member.id == "729224025401851915") interaction.reply({
+     if(interaction.user.id !== "729224025401851915") interaction.reply({
      content: "You cant use that"
      }) 
      
      if(interaction.options.getSubcommand() === "guildmemberadd") {
+			 
      client.emit("guildMemberAdd", interaction.member)
      interaction.reply({
      content: "Event: `guildMemberAdd` was emitted sucessfully"
