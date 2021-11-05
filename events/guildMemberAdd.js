@@ -20,10 +20,10 @@ async execute(member, guild) {
 	        context.strokeRect(0, 0, canvas.width, canvas.height);
 
     context.fillStyle = '#ffffff' // White text
-    context.font = '26px uni-sans, segoe-ui-emoji'
+    context.font = '26px sans'
     context.fillText(`Welcome ${member.user.tag}`, canvas.width / 3, canvas.height / 3)
        context.fillStyle = '#ffffff'
-       context.font = '30px uni-sans, segoe-ui-emoji'
+       context.font = '30px sans'
        context.fillText(`You are member N°${member.guild.members.cache.size}`, canvas.width / 3, canvas.height / 1.44)
 
                 context.beginPath();
