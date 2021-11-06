@@ -24,7 +24,7 @@ module.exports = {
 				await newData1.save()
 			await	 interaction.reply({content: 'Set to true 1'})
 			 } else if (data){
-				devModel.findOneAndUpdate({
+				await devModel.findOneAndUpdate({
 					_id: 1,
 				
 				 }, {status: 'true'})
@@ -42,7 +42,7 @@ module.exports = {
 				await newData1.save()
 			await	 interaction.reply({content: 'Set to false 1'})
 			 } else if (data){
-			devModel.findOneAndUpdate({
+			await devModel.findOneAndUpdate({
 					_id: 1,
 					 
 				 }, {status: 'false'}
