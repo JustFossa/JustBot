@@ -9,6 +9,12 @@ module.exports = {
 
    async execute(interaction, client) {
 
+
+	if(interaction.user.id !== "729224025401851915") {
+		interaction.reply({
+			content: "You cannot use this command!"
+		})
+	}
 		 const data = devModel.findOne({
 
            _id: 1
@@ -19,18 +25,28 @@ module.exports = {
 			 if(!data) {
 				const newData1 = new devModel({
 					 _id: 1,
-					 status: 'true'
+					 status: true
 				 })
 				await newData1.save()
-			await	 interaction.reply({content: 'Set to true 1'})
 			 } else if (data){
 				await devModel.findOneAndUpdate({
 					_id: 1,
 				
-				 }, {status: 'true'})
+				 }, {status: true})
 			
-			await	 interaction.reply({content: 'Set to true'})
+				 
 			 }
+
+			 const embedEnabled = new MessageEmbed()
+			 		.setTitle(`Development mode`)
+					.setDescription(`Status: \`enabled\` \n Enabled by: \`${interaction.user.tag}\`` )
+					.setColor("RED")
+					.setTimestamp()
+				
+					await interaction.reply({
+						embeds: [embedEnabled]
+					})
+					
 			 
 		 }
 
@@ -38,19 +54,29 @@ module.exports = {
 			 if(!data) {
 				const newData1 = new devModel({
 					 _id: 1,
-					 status: ffalse	 })
+					 status: false	 })
 				await newData1.save()
-			await	 interaction.reply({content: 'Set to false 1'})
+		
 			 } else if (data){
 			await devModel.findOneAndUpdate({
 					_id: 1,
 					 
-				 }, {status: 'false'}
+				 }, {status: false}
 				 )
 			
-			interaction.reply({content: 'Set to false'})
+		
 					
 			 }
+
+			 const embedDisabled = new MessageEmbed() 
+			 		.setTitle("Development mode")
+					 .setDescription(`Status: \`disabled\` \n Enabled by: \`${interaction.user.tag}\``)
+			 			.setColor(`GREEN`)
+						 .setTimestamp()
+
+			await interaction.reply({
+				embeds: [embedDisabled]
+			})
 			 
 		 }
    

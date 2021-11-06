@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const dev = new mongoose.Schema({
 	      _id: Number,
-        status: String
+        status: Boolean
 })
 
 module.exports = mongoose.model("devModel",dev)

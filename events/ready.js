@@ -1,17 +1,24 @@
 const mongoose = require("mongoose")
-
+const devModel = require("../models/dev")
 module.exports = {
     name: "ready",
     once: true,
-    execute(client) {
+    async execute(client) {
 
       mongoose.connect(process.env.MONGO_URI, {
           useNewUrlParser: true,
           useUnifiedTopology: true
 
-      }).then(console.log("Connected To MongoDB!"))
+      }).then(console.log("[INFO]:  Connected To MongoDB!"))
 
+const data = await devModel.findOne({
+    _id: 1,
+    status: true
+})
 
+  if(data) {
+    console.log("[INFO]: Bot is Running in maintanance mode")
+  }
 
         const statusOptions = [
             `with ${client.guilds.cache.size} Servers`,
@@ -21,7 +28,12 @@ module.exports = {
           ]
           let counter = 0
 
-        function statusChanger() {
+        async function statusChanger() {
+          const data1 = await devModel.findOne({
+            _id: 1,
+            status: true
+          })
+          if(!data1) {
             client.user.setPresence({
               status: 'dnd',
               
@@ -37,6 +49,20 @@ module.exports = {
             }
           
             setTimeout(statusChanger, 1000 * 10)
+          } else {
+            client.user.setPresence({
+              status: 'dnd',
+              
+              activities: [
+                {
+                  name: 'Undergoing Maintanance'
+                }
+              ]
+            })
+
+            setTimeout(statusChanger, 1000 * 10)
+          }
+            
           }
           
           statusChanger()
