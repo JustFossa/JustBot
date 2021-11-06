@@ -21,6 +21,40 @@ module.exports = {
 			 
 		 })
 
+		 const datatrue = await devModel.findOne({
+			 _id: 1,
+			 status: true
+		 })
+
+		 const datafalse = await devModel.findOne({
+			 _id: 1,
+			 status: false
+		 })
+			 if(!interaction.options.getString('value')) {
+			 if(datatrue) {
+     const trueEmbed1 = new MessageEmbed()
+				 .setTitle('Development mode')
+				 .setDescription(
+					 'Current status: \`enabled\`')
+				 .setColor('BLURPLE')
+				 
+				 interaction.reply({
+					 embeds: [trueEmbed1]
+				 }) }else if (datafalse){
+				 const falseEmbed1 = new MessageEmbed()
+				 .setTitle(`Development Mode`)
+				 .setDescription(
+					 'Current status: `disabled`'
+				 )
+				 .setColor('BLURPLE')
+				 interaction.reply({
+					 embeds: [falseEmbed1]
+				 })
+				 }
+			 
+			
+		 }
+
 		 if (interaction.options.getString('value') == "true") {
 			 if(!data) {
 				const newData1 = new devModel({
