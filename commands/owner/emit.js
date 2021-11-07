@@ -5,7 +5,9 @@ module.exports = {
 	.setName('emit')
 	.setDescription('Emits and Event!')
 	.addSubcommand(command => command.setName("guildmemberadd")
-	.setDescription("Emits member join event")),
+	  .setDescription("Emits member join event"))
+  .addSubcommand(command => command.setName("guildcreate")
+    .setDescription("Emits guildCreate command")),
 
    async execute(interaction, client) {
    
@@ -20,6 +22,14 @@ module.exports = {
      content: "Event: `guildMemberAdd` was emitted sucessfully"
      })
      }
+
+     if(interaction.options.getSubcommand() === "guildcreate") {
+			 
+      client.emit("guildCreate", interaction.guild)
+      interaction.reply({
+      content: "Event: `guildCreate` was emitted sucessfully"
+      })
+      }
    
    }
    

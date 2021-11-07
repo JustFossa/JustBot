@@ -19,7 +19,11 @@ module.exports = {
 			.then(results => {
 				const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
 				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
-			
+                
+        days = Math.floor((client.uptime / (1000 * 60 * 60 * 24)) % 60).toString()
+        hours = Math.floor((client.uptime / (1000 * 60 * 60)) % 60).toString()
+        minutes = Math.floor((client.uptime / (1000 * 60)) % 60).toString()
+        seconds = Math.floor((client.uptime / 1000) % 60).toString()
 
 	const botinfo = new MessageEmbed()
             .setTitle(`${client.user.tag}'s Info'`)
@@ -29,6 +33,8 @@ module.exports = {
             .addField(`\`Websocket latency: \``, `\`${client.ws.ping}ms \``)
             .addField(`\`Total Guilds: \` `, `\`${totalGuilds}\``)
             .addField(`\`Total Members: \` `, `\`${totalMembers}\``)
+            .addField(`\`Uptime: \` `, `\`${days}d ${hours}h ${minutes}m ${seconds}s\``)
+            .setTimestamp()
             
 
             interaction.reply({
