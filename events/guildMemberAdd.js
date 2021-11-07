@@ -20,10 +20,10 @@ async execute(member, guild) {
 	        context.strokeRect(0, 0, canvas.width, canvas.height);
 
     context.fillStyle = '#ffffff' // White text
-    context.font = '26px sans'
-    context.fillText(`Welcome ${member.user.tag}`, canvas.width / 3, canvas.height / 3)
+    context.font = '26px urmum'
+    context.fillText(` ${member.user.tag}`, canvas.width / 3, canvas.height / 3)
        context.fillStyle = '#ffffff'
-       context.font = '30px sans'
+       context.font = '30px urmum'
        context.fillText(`You are member N°${member.guild.members.cache.size}`, canvas.width / 3, canvas.height / 1.44)
 
                 context.beginPath();
@@ -47,11 +47,10 @@ async execute(member, guild) {
 
         const welcEmbed = new MessageEmbed()
                 .setImage('attachment://welcome.png')
-                .setColor("BLURPLE")
+                .setColor("ORANGE")
 
         member.guild.channels.cache.find(channel => channel.id == "901944859391316028").send({embeds: [welcEmbed], files: [attachment]})
 
- console.log(`${member.user.tag} has joined the server!`)
 
 const joinrole = member.guild.roles.cache.find(role => role.id == "901947393870807071")
 
