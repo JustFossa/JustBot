@@ -11,19 +11,22 @@ module.exports = {
                         .setRequired(true)),
                 async execute(interaction) {
                 
-                    try {
+                    
                         const query = interaction.options.getString("query")
                         const url = `https://djsdocs.sorta.moe/v2/embed?src=stable&q=${encodeURIComponent(query)}`
                         
                         const docfetch = await fetch(url)
 
-                            let embed = await docfetch.json()
+                            let embed  = await docfetch.json()
 
-        
+
+
+
+			for (field of embed.fields) {
+				console.log(field.name)
+			}
                         
-                        
-                        
-                        interaction.reply({
+ try{                       interaction.reply({
                         embeds: [embed]
                         })
 

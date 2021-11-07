@@ -21,7 +21,7 @@ module.exports = {
 			if(!command) return
 			
 			try {
-				await command.execute(interaction, client, message)
+				await command.execute(interaction, client)
 			} catch (err) {
 				console.log(err)
 			}
@@ -41,7 +41,7 @@ module.exports = {
 					if(!command) return
 					
 					try {
-						await command.execute(interaction, client, message)
+						await command.execute(interaction, client)
 					} catch (err) {
 						console.log(err)
 					}
