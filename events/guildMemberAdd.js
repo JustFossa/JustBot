@@ -20,10 +20,10 @@ async execute(member, guild) {
 	        context.strokeRect(0, 0, canvas.width, canvas.height);
 
     context.fillStyle = '#ffffff' // White text
-    context.font = '26px urmum'
+    context.font = '26px Sans'
     context.fillText(` ${member.user.tag}`, canvas.width / 3, canvas.height / 3)
        context.fillStyle = '#ffffff'
-       context.font = '30px urmum'
+       context.font = '30px Sans'
        context.fillText(`You are member N°${member.guild.members.cache.size}`, canvas.width / 3, canvas.height / 1.44)
 
                 context.beginPath();
@@ -53,8 +53,10 @@ async execute(member, guild) {
 
 
 const joinrole = member.guild.roles.cache.find(role => role.id == "901947393870807071")
+    if(!member.bot) {
+        await member.roles.add(joinrole.id)
+    }
 
-await member.roles.add(joinrole.id)
 
 
 }}
