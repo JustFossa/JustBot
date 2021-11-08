@@ -4,10 +4,11 @@ module.exports = {
     name: "messageDelete",
     async execute(message, client) {
         
+        const content = message.content || "None"
 
         const embed = new MessageEmbed()
             .setTitle("Message Deleted")
-            .setDescription(`A [message](${message.url}) by ${message.author} was deleted in ${message.channel} \n **Content:**  \`\`\`${message.content}\`\`\``)
+            .setDescription(`A [message](${message.url}) by ${message.author} was deleted in ${message.channel} \n > **Content:**  \`\`\`${content}\`\`\``)
 					.setColor('DARK_BLUE')
             .setTimestamp()
 

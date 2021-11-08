@@ -31,13 +31,13 @@ module.exports = {
 }	
 					const kickEmbed = new MessageEmbed()
                 .setTitle("Member Kicked")
-                .setDescription(`**Member:** ${member} \n **Kicked by:** ${interaction.user} \n **Reason:** \`${why}\``)
+                .setDescription(`**Member:** ${member} \n > **Kicked by:** ${interaction.user} \n > **Reason:** \`${why}\``)
                 .setColor("RED")
                 .setTimestamp()
 
             const dmEmbed = new MessageEmbed()
                 .setTitle("You've been kicked")
-                .setDescription(`**Kicked by:** ${interaction.user} \n **Reason:** \`${why}\` \n **Guild:** \`${interaction.guild}\``)
+                .setDescription(`**Kicked by:** ${interaction.user} \n > **Reason:** \`${why}\` \n > **Guild:** \`${interaction.guild}\``)
                 .setColor("RED")
                 .setTimestamp()
 

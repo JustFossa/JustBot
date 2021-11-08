@@ -35,13 +35,13 @@ module.exports = {
 }	
 					const kickEmbed = new MessageEmbed()
                 .setTitle("Member Banned")
-                .setDescription(`**Member:** ${member} \n **Banned by:** ${interaction.user} \n **Reason:** \`${why}\``)
+                .setDescription(`**Member:** ${member} \n > **Banned by:** ${interaction.user} \n > **Reason:** \`${why}\``)
                 .setColor("RED")
                 .setTimestamp()
 
             const dmEmbed = new MessageEmbed()
                 .setTitle("You've been banned")
-                .setDescription(`**Banned by:** ${interaction.user} \n **Reason:** \`${why}\` \n **Guild:** \`${interaction.guild}\``)
+                .setDescription(`**Banned by:** ${interaction.user} \n > **Reason:** \`${why}\` \n > **Guild:** \`${interaction.guild}\``)
                 .setColor("RED")
                 .setTimestamp()
 
