@@ -15,29 +15,17 @@ module.exports = {
 
     const member = interaction.options.getMember("target")
     
-    const roles = []
+
     
-    const flags = {
-        DISCORD_EMPLOYEE: 'Discord Employee',
-        DISCORD_PARTNER: 'Discord Partner',
-        BUGHUNTER_LEVEL_1: 'Bug Hunter (Level 1)',
-        BUGHUNTER_LEVEL_2: 'Bug Hunter (Level 2)',
-        HYPESQUAD_EVENTS: 'HypeSquad Events',
-        HOUSE_BRAVERY: 'House of Bravery',
-        HOUSE_BRILLIANCE: 'House of Brilliance',
-        HOUSE_BALANCE: 'House of Balance',
-        EARLY_SUPPORTER: 'Early Supporter',
-        TEAM_USER: 'Team User',
-        SYSTEM: 'System',
-        VERIFIED_BOT: 'Verified Bot',
-        VERIFIED_DEVELOPER: 'Verified Bot Developer'
-    };
-    const userFlags = member.user.flags.toArray();
+const roles = member.roles.cache
+			.sort((a, b) => b.position - a.position)
+			.map(role => role.toString())
+			.slice(0, -1);
 
     const userinfo = new MessageEmbed()
-        .setAuthor(`${member.tag}`, member.user.displayAvatarURL())
+        .setAuthor(`${member.user.tag}`, member.user.displayAvatarURL())
         .setTitle("User Info")
-        .setDescription(`**Username:** \`${member.user.username}\`\n**Nickname:** \`${member.nickname || "None"}\`\n**ID:** \`${member.user.id}\`\n**Joined at:** <t:${member.joinedTimestamp}:F>\n**Pending:** \`${member.pending}\`\n**Flags:** \`${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'None'}\```)
+        .setDescription(`**Tag:** \`${member.user.tag}\`\n**Nickname:** \`${member.nickname || "None"}\`\n**ID:** \`${member.user.id}\`\n**Joined at:** \`${member.joinedAt}\`\n**Account Created:** \`${member.user.createdAt}\`\n**Pending:** \`${member.pending}\`\n**Display Color (HEX):** \`${member.displayHexColor}\`\n**Roles[${roles.length}]:** ${roles.length < 10 ? roles.join(', ') : 'None'}`)
         .setColor("AQUA")
 
             interaction.reply({
