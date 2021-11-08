@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const devModel = require("../models/dev")
+const memberModel = require("../models/memberCounter.js")
 module.exports = {
     name: "ready",
     once: true,
@@ -15,6 +16,7 @@ const data = await devModel.findOne({
     _id: 1,
     status: true
 })
+
 
   if(data) {
     console.log("[INFO]: Bot is Running in maintanance mode")
@@ -66,6 +68,7 @@ const data = await devModel.findOne({
           }
           
           statusChanger()
-    }
+    
                 
+}
 }

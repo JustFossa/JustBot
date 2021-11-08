@@ -3,4 +3,4 @@ const client = require('../index')
 
 const discordTogether = new DiscordTogether(client)
 
-module.exports = discordTogether
+module.exports = discordTogether 

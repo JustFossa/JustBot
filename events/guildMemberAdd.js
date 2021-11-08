@@ -1,11 +1,28 @@
 const Canvas = require("canvas")
 const {MessageAttachment, MessageEmbed} = require("discord.js")
-
+const schema = require("../models/memberCounter.js")
 module.exports = {
 name: "guildMemberAdd",
 async execute(member, guild) {
 
-    
+  const data = await schema.findOne({
+		guildId: member.guild.id
+	}) 
+ 
+if(!data) {
+	console.log('No counter set')
+} else if(data) {
+	 const channel = member.guild.channels.cache.get(data.channelId)
+	await channel.setName(`Total Members: ${member.guild.memberCount.toLocaleString()}`)
+}
+
+
+
+
+
+
+
+	
     const canvas = Canvas.createCanvas(700, 250);
 		const context = canvas.getContext('2d');
 
