@@ -25,7 +25,7 @@ const roles = member.roles.cache
     const userinfo = new MessageEmbed()
         .setAuthor(`${member.user.tag}`, member.user.displayAvatarURL())
         .setTitle("User Info")
-        .setDescription(`**Tag:** \`${member.user.tag}\`\n**Nickname:** \`${member.nickname || "None"}\`\n**ID:** \`${member.user.id}\`\n**Joined at:** \`${member.joinedAt}\`\n**Account Created:** \`${member.user.createdAt}\`\n**Pending:** \`${member.pending}\`\n**Display Color (HEX):** \`${member.displayHexColor}\`\n**Roles[${roles.length}]:** ${roles.length < 10 ? roles.join(', ') : 'None'}`)
+        .setDescription(`**Tag:** \`${member.user.tag}\`\n**Nickname:** \`${member.nickname || "None"}\`\n**ID:** \`${member.user.id}\`\n\n**Joined at:** <t:${parseInt(member.joinedTimestamp / 1000)}:R>\n**Account Created:** <t:${parseInt(member.user.createdAt / 1000)}:R>\n\n**Pending:** \`${member.pending}\`\n**Display Color (HEX):** \`${member.displayHexColor}\`\n**Roles[${roles.length}]:** ${roles.length < 10 ? roles.join(', ') : 'None'}`)
         .setColor("AQUA")
 
             interaction.reply({
