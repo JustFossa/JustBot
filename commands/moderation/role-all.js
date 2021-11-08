@@ -18,10 +18,27 @@ module.exports = {
         const roleint = interaction.options.getRole("role")
 
 
+const members = []
 
-        for (const member of interaction.guild.members.cache) {
-            await member.roles.add(roleint)
+await interaction.guild.members.fetch({ force: true }).then((v) => {
+            v.forEach((gm) =>{
+							
+	if(!gm.roles.cache.has(roleint.id)) {
+		
+	gm.roles.add(roleint.id)
+ members.push(gm)
+	}		
+						})})
 
-        }
-    }
+			const embed = new MessageEmbed()
+			.setTitle("Roles added")
+			.setDescription(`**Role:** ${roleint}\n**Members:** \`${members.length}\``)
+			.setColor("RANDOM")
+			.setTimestamp()
+await interaction.reply({
+   embeds:[embed]
+})
+			
+
+}
 }
