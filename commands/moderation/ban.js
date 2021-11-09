@@ -1,5 +1,6 @@
 const {MessageEmbed, Permissions} = require("discord.js")
 const {SlashCommandBuilder} = require("@discordjs/builders")
+const banSchema = require("../../models/banSchema")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("ban")
@@ -33,6 +34,26 @@ module.exports = {
 	})
 						
 }	
+const data = await banSchema.findOne({
+    guildId: interaction.guild.id
+})
+
+if(!data) {
+    const newData = new banSchema({
+        guildId: interaction.guild.id,
+        memberId: member.id,
+        reason: why
+    })
+    newData.save()
+} else if (data) {
+    await banSchema.findOneAndUpdate({
+        guildId: interaction.guild.id
+    }, {
+        guildId: interaction.guild.id,
+        memberId: member.id,
+        reason: why
+    })
+}
 					const kickEmbed = new MessageEmbed()
                 .setTitle("Member Banned")
                 .setDescription(`**Member:** ${member} \n > **Banned by:** ${interaction.user} \n > **Reason:** \`${why}\``)
