@@ -4,20 +4,15 @@ const muteRole = require("../../models/muteRole")
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("mute")
-        .setDescription("Mutes specified member")
+        .setName("unmute")
+        .setDescription("Unmutes specified member")
         .addUserOption(option => option.setName("user")
-            .setDescription("The member you want to mute")
-            .setRequired(true))
-        .addStringOption(option => option.setName("reason")
-            .setDescription("The reason you want to mute the user for")
-            .setRequired(false))
-        .addNumberOption(option => option.setName("length")
-            .setDescription("The length you want to mute the user for")),
+            .setDescription("The member you want to unmute")
+            .setRequired(true)),
+        
     async execute(interaction, client) {
         const member = interaction.options.getMember("user")
-        const reason = interaction.options.getString("reason") || "No reason provided"
-        const length = interaction.options.getNumber("length")
+       
 
        
 
@@ -31,11 +26,11 @@ module.exports = {
             content: "You dont have any mute role configured, please set it by using `/muterole`"
             })
     } else if(mutedRole) {
-        await member.roles.add(mutedRole.roleId)
+        await member.roles.remove(mutedRole.roleId)
 
         const embed = new MessageEmbed()
-            .setTitle("Member Muted")
-            .setDescription(`**Member:** ${member} \n **Reason:** \`${reason}\``)
+            .setTitle("Member Unmuted")
+            .setDescription(`**Member:** ${member}`)
             .setColor("RANDOM")
             .setTimestamp()
             await interaction.reply({
