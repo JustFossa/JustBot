@@ -12,6 +12,12 @@ module.exports = {
     async execute(interaction, client) {
         const role = interaction.options.getRole("role")
         
+				if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+						return interaction.reply({
+							content: "You cant use that"
+						})
+					}
+
         const data = await muteRole.findOne({
             guildId: interaction.guild.id
         })

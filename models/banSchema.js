@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
 
 const banSchema = new mongoose.Schema({
-    guildId: Number,
-    memberId: Number,
+    guildId: String,
+    memberId: String,
     reason: String
 })
 

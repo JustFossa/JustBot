@@ -13,7 +13,11 @@ module.exports = {
     async execute(interaction, client) {
         const member = interaction.options.getMember("user")
        
-
+			if(!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+						return interaction.reply({
+							content: "You cant use that"
+						})
+					}
        
 
         const mutedRole = await muteRole.findOne({

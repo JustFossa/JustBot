@@ -1,5 +1,5 @@
 const {SlashCommandBuilder} = require("@discordjs/builders")
-const {MessageEmbed, Permission} = require("discord.js")
+const {MessageEmbed, Permissions} = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,7 +12,11 @@ module.exports = {
 						.setDescription("Select a target to clear their messages")),
 	async execute(interaction, client) {
 		const {channel, options} = interaction
-
+		if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+						return interaction.reply({
+							content: "You cant use that"
+						})
+					}
 		const Amount = options.getNumber("amount")
 		const target = options.getMember("target")
 

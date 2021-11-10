@@ -19,6 +19,11 @@ module.exports = {
         const reason = interaction.options.getString("reason") || "No reason provided"
         const length = interaction.options.getNumber("length")
 
+			if(!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+						return interaction.reply({
+							content: "You cant use that"
+						})
+					}
        
 
         const mutedRole = await muteRole.findOne({

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const memberCounterModel = new mongoose.Schema({
-	guildId: Number,
+	guildId: String,
 	channelId: {
 		type: String
 	}

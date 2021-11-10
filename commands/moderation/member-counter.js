@@ -33,11 +33,12 @@ const data = await schema.findOne({
 		})
 	}
 
+	await channel.setName(`Total Members: ${interaction.guild.memberCount} `)
+
 
 					const embed = new MessageEmbed()
 					.setTitle("Member Count")
 					.setDescription(`**Channel:** \`${channel.id}\`\n**Members:** \`${interaction.guild.memberCount}\``)
-						.setFooter('The counter will start changing once someone joins or leaves the server')
 					.setColor('RANDOM')
 					.setTimestamp()
 
