@@ -1,5 +1,4 @@
 const { Client, Intents, Collection } = require('discord.js');
-const {token} = require("./config.json")
 const fs = require('fs')
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
