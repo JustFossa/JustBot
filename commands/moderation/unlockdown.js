@@ -18,15 +18,17 @@ module.exports = {
 
 
         
-for(channel of interaction.guild.channels.cache) {
-  interaction.guild.roles.cache.forEach(role => {
+interaction.guild.channels.cache.forEach(channel => {
+interaction.guild.roles.cache.forEach(role => {
           channel.permissionOverwrites.edit(role, {
                     SEND_MESSAGES: true,
                     ADD_REACTIONS: true
                 });
-            });
+            });	
+})
+  
    
-		}
+		
        interaction.reply({
 				 content: `Done | Server Unlocked!`
 			 });	

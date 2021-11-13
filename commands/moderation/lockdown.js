@@ -17,19 +17,20 @@ module.exports = {
 				})
 
 
-    
-for(const channel of interaction.guild.channels.cache) {
-  interaction.guild.roles.cache.forEach(role => {
+interaction.guild.channels.cache.forEach(channel => {
+interaction.guild.roles.cache.forEach(role => {
           channel.permissionOverwrites.edit(role, {
                     SEND_MESSAGES: false,
                     ADD_REACTIONS: false
                 });
             });
    
-		}
+		})
+  
        interaction.reply({
-				 content: `Done | Channel Locked!`
+				 content: `Done | Server Locked!`
 			 });	
          
-    }
+    
+}
 }
