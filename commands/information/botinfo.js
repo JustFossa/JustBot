@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, Client, Intents } = require("discord.js")
-
+const os = require("os")
+const moment = require("moment")
+const {utc} = require("moment")
 
 module.exports = {
     
@@ -10,36 +12,60 @@ module.exports = {
 
    async execute(interaction, client) {
 
-    const promises = [
-        client.shard.fetchClientValues('guilds.cache.size'),
-        client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
-    ];
+    const core = os.cpus()[0]
+        const clientCreated = utc(client.user.createdTimesstamp).format("Do MMMM YYYY");
+        const servers = client.guilds.cache.size.toLocaleString();
+        const users = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toLocaleString();
+        const channels = client.channels.cache.size.toLocaleString();
+        let uptime = moment.duration(client.uptime);
+            sec = uptime.seconds() == 1 ? `${uptime.seconds()} seconds` : `${uptime.seconds()} seconds`;
+            min = uptime.minutes() == 1 ? `${uptime.minutes()} minutes` : `${uptime.minutes()} minutes`;
+            hr = uptime.hours() == 1 ? `${uptime.hours()} hours` : `${uptime.hours()} hours`;
+            days = uptime.days() == 1 ? `${uptime.days()} days` : `${uptime.days()} days`;
 
-    return Promise.all(promises)
-			.then(results => {
-				const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
-				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
-                
-        days = Math.floor((client.uptime / (1000 * 60 * 60 * 24)) % 60).toString()
-        hours = Math.floor((client.uptime / (1000 * 60 * 60)) % 60).toString()
-        minutes = Math.floor((client.uptime / (1000 * 60)) % 60).toString()
-        seconds = Math.floor((client.uptime / 1000) % 60).toString()
-
-	const botinfo = new MessageEmbed()
-            .setTitle(`${client.user.tag}'s Info'`)
-            .addField(`\`ID: \``, `\`${client.user.id}\``)
-            .addField(`\`Username: \``, `\`${client.user.username} \``)
-            .addField(`\`Dicriminator: \``, `\`#${client.user.discriminator}\``)
-            .addField(`\`Websocket latency: \``, `\`${client.ws.ping}ms \``)
-            .addField(`\`Total Guilds: \` `, `\`${totalGuilds}\``)
-            .addField(`\`Total Members: \` `, `\`${totalMembers}\``)
-            .addField(`\`Uptime: \` `, `\`${days}d ${hours}h ${minutes}m ${seconds}s\``)
-            .setTimestamp()
-            
-
-            interaction.reply({
-                embeds: [botinfo]
-            })
-        })
+ 
+           const embed = new MessageEmbed()
+                .setAuthor("Stats ðŸ“Š", client.user.displayAvatarURL())
+                .setColor('#A9E9F6')
+                .addFields(
+                    {
+                        name: 'Ping',
+                        value: `\`WS Ping: ${Math.round(client.ws.ping)}ms\``
+                    },
+                    {
+                        name: 'Server Count',
+                        value: `\`${servers} servers\``,
+                        inline: true,
+                    },
+                    {
+                        name: `User Count`,
+                        value: `\`${users} users\``,
+                        inline: true,
+                    },
+                    {
+                        name: 'Channel Count',
+                        value: `\`${channels} channels\``
+                    },
+                    {
+                        name: 'Bot Info',
+                        value: `\`Tag: ${client.user.tag} \n ID: ${client.user.id} \n Commands: ${client.commands.size} commands \n Created on: ${clientCreated}\``,
+                        inline: true,
+                    },
+                    {
+                        name: 'CPU Info',
+                        value: `\`CPU Model: ${core.model} \n CPU Cores: ${os.cpus().length} \n CPU Speed: ${core.speed / 1000} GHz\``,
+                        inline: true,
+                    },
+                    {
+                        name: 'Uptime',
+                        value: `\`${days}, ${hr}, ${min} and ${sec}\``,
+                        inline: true,
+                    },
+                )
+                .setFooter(`JustBot`)
+        
+                interaction.reply({
+                    embeds: [embed]
+                })
     }
-}
+    }
