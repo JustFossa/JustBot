@@ -1,5 +1,4 @@
 const { Client, Intents, Collection } = require('discord.js');
-const {token} = require("./config.json")
 const fs = require('fs')
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
@@ -27,7 +26,7 @@ client.on('ready', () => {
         const command = require(`./commands/${folder}/${file}`);
     
      client.commands.set(command.data.name, command);
-        commands.push(command.data.toJSON());
+console.log(`[COMMANDS]: Loaded: `+ command.data.name);    commands.push(command.data.toJSON());
       }
     }
 
