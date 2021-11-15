@@ -30,15 +30,12 @@ if(!data) {
         const background = await Canvas.loadImage('./bg.jpg');
 
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
-        context.fillStyle = "rgba(0, 0, 0, 0.6)";
+        context.fillStyle = "rgba(0, 0, 0, 0.75)";
        context.fillRect(0, 0, 700, 250)
-        context.strokeStyle = '#0099ff';
-
-	
-	        context.strokeRect(0, 0, canvas.width, canvas.height);
+      
 
     context.fillStyle = '#ffffff' // White text
-    context.font = '26px ArialUni'
+    context.font = '30px ArialUni'
     context.fillText(` ${member.user.tag}`, canvas.width / 3, canvas.height / 3)
        context.fillStyle = '#ffffff'
        context.font = '30px ArialUni'
