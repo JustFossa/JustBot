@@ -24,12 +24,12 @@ const data = await schema.findOne({
   if(!data) {
 		const newData = new schema({
 			guildId: interaction.guild.id,
-			channelId: channel
+			channelId: channel.id
 		})
    await newData.save()
 	} else if(data) {
 	await	schema.findOneAndUpdate({ guildId: interaction.guild.id }, {
-			channelId: channel
+			channelId: channel.id
 		})
 	}
 
