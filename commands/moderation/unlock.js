@@ -1,6 +1,7 @@
 const {MessageEmbed, Permissions} = require('discord.js');
 const { Console } = require('console');
 const {SlashCommandBuilder} = require("@discordjs/builders")
+const muteRole = require("../../models/muteRole")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,13 +17,19 @@ module.exports = {
 					embeds: [lockPermErr]
 				})
 
-
+const data = await muteRole.findOne({
+	guildId: interaction.guild.id
+})
         try {
             interaction.guild.roles.cache.forEach(role => {
-                interaction.channel.permissionOverwrites.edit(role, {
+							
+ if(role.id !== data.roleId)  {
+	 
+       interaction.channel.permissionOverwrites.edit(role, {
                     SEND_MESSAGES: true,
                     ADD_REACTIONS: true
                 });
+ }
             });
         } catch (e) {
             console.log(e);

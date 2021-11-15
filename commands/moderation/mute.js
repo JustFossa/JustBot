@@ -1,7 +1,7 @@
 const {SlashCommandBuilder} = require("@discordjs/builders")
 const {MessageEmbed, Permissions} = require("discord.js")
 const muteRole = require("../../models/muteRole")
-
+const muteSchema = require("../../models/muteSchema")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("mute")
@@ -31,6 +31,25 @@ module.exports = {
             memberId: member.user.id
         })
 
+			const data = await muteSchema.findOne({
+				guildId: interaction.guild.id
+			})
+
+	if(!data) {
+		const newData = new muteSchema({
+			guildId: interaction.guild.id,
+			Users: member.user.id
+		})
+		newData.save()
+	} else if(data) {
+    await muteSchema.findOneAndUpdate({guildId:interaction.guild.id},
+																{
+																	$push: {
+		Users: member.user.id
+																	}
+																}													 )
+	}
+
     if(!mutedRole) {
         return await interaction.reply({
             content: "You dont have any mute role configured, please set it by using `/muterole`"
@@ -47,16 +66,7 @@ module.exports = {
                 embeds: [embed]
             })
         }
-/*
-let userRoles = []
-
-for(role of member.roles.cache) {
-  
-    userRoles.push(role)
-}
-*/
-
-      
+ 
     
       
 
