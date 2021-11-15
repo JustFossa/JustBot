@@ -3,6 +3,16 @@ const { MessageEmbed } = require("discord.js")
 const fs = require('fs')
 const path = require('path')
 
+
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('help')
+        .setDescription('Replies with help menu!')
+        .addStringOption(option => option.setName('commandname').setDescription('Enter command name')),
+
+    async execute(interaction, client) {
+
 let categories = [];
 let commandInfo = new Map();
 
@@ -11,8 +21,6 @@ fs.readdirSync("./commands").forEach((dir) => {
 
     const cmds = commands.map((command) => {
         let file = require(`../../commands/${dir}/${command}`);
-
-        if (!file.data?.name) return "No command Name"
 
         let name = file.data.name
 
@@ -29,14 +37,6 @@ fs.readdirSync("./commands").forEach((dir) => {
 
     categories.push(data)
 })
-
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Replies with help menu!')
-        .addStringOption(option => option.setName('commandname').setDescription('Enter command name')),
-
-    async execute(interaction, client) {
   
 
         // check if there's any command passed
@@ -53,9 +53,9 @@ module.exports = {
             })    
         } else{
             const embed = new MessageEmbed()
-                .addField(option, commandInfo.get(option))
+                .addField(`/${option}`, `\`${commandInfo.get(option)}\``)
                 .setColor("BLURPLE")
-                .setFooter(`command help for ${option}`);
+                .setFooter(`Command info for ${option}`);
 
                 await interaction.reply({
                     embeds: [embed]
@@ -64,4 +64,4 @@ module.exports = {
         
     }
 
-
+}

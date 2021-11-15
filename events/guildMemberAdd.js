@@ -5,7 +5,7 @@ const schema = require("../models/memberCounter.js")
 module.exports = {
 name: "guildMemberAdd",
 async execute(member) {
-registerFont("./fonts/FiraSans-Regular.ttf", {family: "FiraSans"})
+registerFont("./fonts/ARIALUNI.ttf", {family: "ArialUni"})
   const data = await schema.findOne({
 		guildId: member.guild.id
 	}) 
@@ -38,10 +38,10 @@ if(!data) {
 	        context.strokeRect(0, 0, canvas.width, canvas.height);
 
     context.fillStyle = '#ffffff' // White text
-    context.font = '26px FiraSans'
+    context.font = '26px ArialUni'
     context.fillText(` ${member.user.tag}`, canvas.width / 3, canvas.height / 3)
        context.fillStyle = '#ffffff'
-       context.font = '30px FiraSans'
+       context.font = '30px ArialUni'
        context.fillText(`You are member N°${member.guild.members.cache.size}`, canvas.width / 3, canvas.height / 1.44)
 
                 context.beginPath();
