@@ -13,9 +13,8 @@ module.exports = {
 		console.log(`[INTERACTION]: ${interaction.user.tag} in #${interaction.channel.name} triggered an interaction: ${interaction.commandName}.`);
 
 		if(!data) {
-			if(!interaction.isCommand()) {
-			return
-		} else {
+			if(interaction.isCommand()) {
+
 			const command = client.commands.get(interaction.commandName)
 	
 			if(!command) return
@@ -33,9 +32,8 @@ module.exports = {
 				})
 				
 			} else {
-				if(!interaction.isCommand()) {
-					return
-				} else {
+				if(interaction.isCommand()) {
+				
 					const command = client.commands.get(interaction.commandName)
 			
 					if(!command) return
@@ -47,6 +45,11 @@ module.exports = {
 					}
 				} 
 			}
+		} 
+		if (interaction.isSelectMenu()) {
+				if(interaction.customId == "select") {
+					console.log("Reaction Role")
+				}
 		}
 		
 		

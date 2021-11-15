@@ -4,4 +4,4 @@
 
 ## Wanna contribute?
 
-> Just create a pull request with nice addition and voila, you are contributor
+> Just create a pull request with nice addition and voila, you are contributor. Its pretty simple
