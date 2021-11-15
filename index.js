@@ -26,7 +26,7 @@ client.on('ready', () => {
         const command = require(`./commands/${folder}/${file}`);
     
      client.commands.set(command.data.name, command);
-        commands.push(command.data.toJSON());
+console.log(`[COMMANDS]: Loaded: `+ command.data.name);    commands.push(command.data.toJSON());
       }
     }
 
