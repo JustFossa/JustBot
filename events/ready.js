@@ -24,7 +24,7 @@ const data = await devModel.findOne({
 
         const statusOptions = [
             `with ${client.guilds.cache.size} Servers`,
-            `Coded by フォサー#0069`,
+            `JustFossa.tech`,
             `/help for help`
           
           ]
