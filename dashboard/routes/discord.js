@@ -5,9 +5,10 @@ const express = require("express"),
 const fetch = require("node-fetch"),
 	btoa = require("btoa");
 
+
 // Gets login page
 router.get("/login", async function(req, res) {
-	if(!req.user || !req.user.id || !req.user.guilds){
+if(!req.user || !req.user.id || !req.user.guilds){
 		return res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=902251614923005953&scope=identify%20guilds&response_type=code&redirect_uri=${encodeURIComponent(req.client.config.dashboard.baseURL+"/api/callback")}&state=${req.query.state || "no"}`);
 	}
 	res.redirect("/selector");
@@ -31,7 +32,7 @@ router.get("/callback", async (req, res) => {
 		method: "POST",
 		body: params.toString(),
 		headers: {
-			Authorization: `Basic ${btoa(`${req.client.user.id}:${req.client.config.dashboard.secret}`)}`,
+			Authorization: `Basic ${btoa(`902251614923005953:${req.client.config.dashboard.secret}`)}`,
 			"Content-Type": "application/x-www-form-urlencoded"
 		}
 	});
@@ -77,14 +78,16 @@ router.get("/callback", async (req, res) => {
 		const embed = new Discord.MessageEmbed()
 			.setAuthor(user.username, user.displayAvatarURL())
 			.setColor("#DA70D6")
-			.setDescription(req.client.translate("dashboard:FIRST_LOGIN", {
+			.setDescription("{{user}} logged on to the dashboard for the first time! :tada:", {
 				user: user.tag
-			}));
+			});
 		logsChannel.send({ embeds: [embed] });
 		userDB.logged = true;
 		userDB.save();
 	}
 	res.redirect(redirectURL);
 });
+
+
 
 module.exports = router;

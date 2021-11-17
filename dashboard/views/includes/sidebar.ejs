@@ -9,13 +9,12 @@
         </div>
         <div class="pull-left info">
             <p><%= user.username %></p>
-            <a href="#"><i class="fa fa-circle text-<%= user.status === 'dnd' ? 'danger' : user.status === 'idle' ? 'warning' : user.status === 'online' ? 'success' : ''%>"></i> <%= translate("common:STATUS_"+user.status.toUpperCase()) %></a>
         </div>
         </div>
         <!-- search form -->
         <form action="/selector" method="get" class="sidebar-form">
         <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="<%= translate("dashboard:SEARCH") %>">
+            <input type="text" name="q" class="form-control" placeholder="Search>">
             <span class="input-group-btn">
                 <button type="submit" id="search-btn" class="btn btn-flat">
                     <i class="fa fa-search"></i>
@@ -26,14 +25,14 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header"><%= translate("dashboard:SERVERS_MANAGEMENT").toUpperCase() %></li>
+            <li class="header">Server Management</li>
             <li class="treeview menu-open">
-                <li><a href="/selector"><i class="fa fa-home"></i> <span><%= translate("dashboard:SELECTOR") %></span></a></li>
+                <li><a href="/selector"><i class="fa fa-home"></i> <span>Selector</span></a></li>
             </li>
             <li class="treeview">
                 <a href="/manage/">
                 <i class="fa fa-server"></i>
-                <span><%= translate("dashboard:SERVERS_LIST") %></span>
+                <span>Server List</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -48,9 +47,9 @@
             </li>
         </ul>
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header"><%= translate("common:PROFILE").toUpperCase() %></li>
+            <li class="header">PROFILE</li>
             <li class="treeview menu-open">
-                <li><a href="/settings"><i class="fa fa-gear"></i> <span><%= translate("common:SETTINGS") %></span></a></li>
+                <li><a href="/settings"><i class="fa fa-gear"></i> <span>Settings</span></a></li>
             </li>
         </ul>
     </section>

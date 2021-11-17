@@ -1,0 +1,5 @@
+{
+    "DESCRIPTION": "\"dictator\" resmini üretir",
+    "USAGE": "{{prefix}}dictator (@member)",
+    "EXAMPLES": "{{prefix}}dictator\n{{prefix}}dictator @Androz#2091"
+}

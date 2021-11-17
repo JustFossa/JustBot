@@ -1,0 +1,5 @@
+{
+    "DESCRIPTION": "\"youtube-comment\" resmini üretir",
+    "USAGE": "{{prefix}}youtube-comment (@member) [text]",
+    "EXAMPLES": "{{prefix}}youtube-comment Merhaba!\n{{prefix}}youtube-comment @Androz#2091 Merhaba!"
+}

@@ -1,0 +1,7 @@
+{
+    "DESCRIPTION": "Geçerli şarkıda belirli bir süre ileri veya geri git!!",
+    "USAGE": "{{prefix}}seek [time]",
+    "EXAMPLES": "{{prefix}}resume 10s",
+    "INVALID_TIME": "Geçerli bir süre belirtmelisiniz!",
+    "SUCCESS": "▶️ Müzik Değiştirildi!"
+}
