@@ -5,11 +5,13 @@ const { Routes } = require("discord-api-types/v9");
 require('dotenv').config()
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS,
 Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES,
-Intents.FLAGS.GUILD_VOICE_STATES																		 ] })
+Intents.FLAGS.GUILD_VOICE_STATES] 
+})
 
 client.commands = new Collection()
 client.aliasses = new Collection()
 client.legacyCommands = new Collection()
+client.usages = new Collection()
 module.exports.client = client
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith('.js'))
 
@@ -49,6 +51,11 @@ console.log(`[COMMANDS]: Loaded: `+ command.data.name);    commands.push(command
 
 fileGet.help.aliasses.forEach(alias => {
 	client.aliasses.set(alias, fileGet.help.name)
+})
+
+fileGet.help.usage.forEach(usage => {
+  if(!usage) usage = "None"
+  client.usages.set(usage, fileGet.help.name)
 })
 				} catch (err) {
 					console.log(err)
