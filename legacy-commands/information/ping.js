@@ -7,5 +7,5 @@ module.exports.run = async(client, message) => {
 module.exports.help = {
 	name: "ping",
 	aliasses: ["p"],
-	usage: "ping <test>"
+	usages: "ping <test>"
 }

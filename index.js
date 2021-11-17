@@ -50,14 +50,10 @@ console.log(`[COMMANDS]: Loaded: `+ command.data.name);    commands.push(command
 					client.legacyCommands.set(fileGet.help.name, fileGet)
 
 fileGet.help.aliasses.forEach(alias => {
+
 	client.aliasses.set(alias, fileGet.help.name)
 })
-
-fileGet.help.usage.forEach(usage => {
-  if(!usage) usage = "None"
-  client.usages.set(usage, fileGet.help.name)
-})
-				} catch (err) {
+			} catch (err) {
 					console.log(err)
 				}
     }
@@ -105,7 +101,7 @@ client.on("messageCreate",async message => {
 	let cmd = messageArray[0]
 	let args = messageArray.slice[1]
 
-	let commands = client.legacyCommands.get(cmd.slice(prefix.length) || client.legacyCommands.get(client.aliasses.get(cmd.slice(prefix.length))))
+	let commands = client.legacyCommands.get(cmd.slice(prefix.length)) || client.legacyCommands.get(client.aliasses.get(cmd.slice(prefix.length)))
 	if(commands) {
 	if(!message.content.startsWith(prefix)) return
 				commands.run(client, message, args, prefix)

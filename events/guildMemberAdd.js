@@ -2,6 +2,7 @@ const Canvas = require("canvas")
 const {registerFont} = require("canvas")
 const {MessageAttachment, MessageEmbed} = require("discord.js")
 const schema = require("../models/memberCounter.js")
+const settings = require("../models/guildSettings.js")
 module.exports = {
 name: "guildMemberAdd",
 async execute(member) {
@@ -20,7 +21,16 @@ if(!data) {
 
 
 
+const settData = await settings.findOne({
+	guildId: member.guild.id
+}) 
 
+if(!settData) {
+	return
+}
+if(settData.welcoming == false || settData.welcoming == null) {
+	return
+}
 
 
 	
@@ -64,7 +74,7 @@ if(!data) {
                 .setImage('attachment://welcome.png')
                 .setColor("ORANGE")
 if(member.id !== "736646349306593401") {
-    member.guild.channels.cache.find(channel => channel.id == "901944859391316028").send({embeds: [welcEmbed], files: [attachment]})
+    member.guild.channels.cache.get(settData.welcomeChannel).send({embeds: [welcEmbed], files: [attachment]})
 }
         
 
