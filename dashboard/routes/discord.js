@@ -8,7 +8,7 @@ const fetch = require("node-fetch"),
 // Gets login page
 router.get("/login", async function(req, res) {
 	if(!req.user || !req.user.id || !req.user.guilds){
-		return res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${req.client.user.id}&scope=identify%20guilds&response_type=code&redirect_uri=${encodeURIComponent(req.client.config.dashboard.baseURL+"/api/callback")}&state=${req.query.state || "no"}`);
+		return res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=902251614923005953&scope=identify%20guilds&response_type=code&redirect_uri=${encodeURIComponent(req.client.config.dashboard.baseURL+"/api/callback")}&state=${req.query.state || "no"}`);
 	}
 	res.redirect("/selector");
 });

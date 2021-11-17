@@ -1,4 +1,4 @@
-const config = require("../config"),
+const config = require("../config.js"),
 	utils = require("./utils"),
 	CheckAuth = require("./auth/CheckAuth");
 
@@ -32,7 +32,7 @@ module.exports.load = async(client) => {
 		// Set the ejs templates to ./views
 		.set("views", path.join(__dirname, "/views"))
 		// Set the dashboard port
-		.set("port", config.dashboard.port)
+		.set("port", client.config.dashboard.port)
 		// Set the express session password and configuration
 		.use(session({ secret: config.dashboard.expressSessionPassword, resave: false, saveUninitialized: false }))
 		// Multi languages support
@@ -72,7 +72,7 @@ module.exports.load = async(client) => {
 
 	// Listen
 	app.listen(app.get("port"), () => {
-		console.log("Atlanta Dashboard is listening on port "+app.get("port"));
+		console.log("[DASHBOARD]: listening on port "+app.get("port"));
 	});
 
 };

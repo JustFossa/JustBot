@@ -10,7 +10,7 @@ router.get("/selector", CheckAuth, async(req, res) => {
 	res.render("selector", {
 		user: req.userInfos,
 		translate: req.translate,
-		currentURL: `${req.client.config.dashboard.baseURL}/${req.originalUrl}`
+		currentURL: `/${req.originalUrl}`
 	});
 });
 

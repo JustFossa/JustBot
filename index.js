@@ -12,6 +12,10 @@ client.commands = new Collection()
 client.aliasses = new Collection()
 client.legacyCommands = new Collection()
 client.usages = new Collection()
+client.dashboard = require("./dashboard/app.js")
+client.config = require("./config.js")
+client.states = {}
+client.knownGuilds = []
 module.exports.client = client
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith('.js'))
 
@@ -107,6 +111,8 @@ client.on("messageCreate",async message => {
 				commands.run(client, message, args, prefix)
 	}	
 })
+
+client.dashboard.load(client)
 
 
 client.login(process.env.TOKEN);
