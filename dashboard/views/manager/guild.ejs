@@ -18,9 +18,9 @@
 
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
-					<h1> <%= translate("common:CONFIGURATION") %> <small> Version 1.0.0-beta </small> </h1>
+					<h1> Configuration <small> Version 1.0.0-beta </small> </h1>
 					<ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-home"></i> <%= translate("dashboard:SELECTOR") %></a></li>
+                        <li><a href="/"><i class="fa fa-home"></i> Selector</a></li>
                         <li class="active"><%= guild.name %></li>
 					</ol>
 				</section>
@@ -40,7 +40,7 @@
                                         <div class="col-sm-12 border-right">
                                             <div class="description-block">
                                                 <h5 class="description-header"><%= guild.memberCount %></h5>
-                                                <span class="description-text"><%= translate("common:MEMBERS") %></span>
+                                                <span class="description-text">Members</span>
                                             </div>
                                             <!-- /.description-block -->
                                         </div>
@@ -53,57 +53,40 @@
                             <!-- BASIC CONFIGURATION -->
                             <div class="box box-warning">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title"><%= translate("dashboard:BASIC_CONF") %></h3>
+                                    <h3 class="box-title">Basic Configuration</h3>
                                 </div>
                                 <form role="form" action="/manage/<%= guild.id %>/" method="POST">
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <!-- text input -->
                                         <div class="form-group">
-                                            <label><%= translate("common:PREFIX") %></label>
+                                            <label>Prefix</label>
                                             <input type="text" name="prefix" class="form-control" placeholder="<%= guild.prefix %>">
                                         </div>
                                         <!-- select -->
-                                        <div class="form-group">
-                                            <label><%= translate("common:LANGUAGE") %></label>
-                                            <select class="form-control" name="language">
-                                                <% bot.languages.forEach((language) => { %>
-                                                    <% if(guild.language === language.name){ %>
-                                                        <option selected="selected"><%= language.aliases[0] %></option>
-                                                    <% } else { %>
-                                                        <option><%= language.aliases[0] %></options>
-                                                    <% } %>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- /.box-body -->
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary"><%= translate("common:UPDATE") %></button>
-                                    </div>
-                                </form>
+                                  </form>
                             </div>
                             <!-- /.box -->
                             <!-- SPECIAL CHANNELS -->
                             <div class="box box-warning">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title"><%= translate("dashboard:CHANNELS_CONF") %></h3>
+                                    <h3 class="box-title">Channels configuration</h3>
                                 </div>
                                 <form role="form" action="/manage/<%= guild.id %>/" method="POST">
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <!-- select -->
                                         <div class="form-group">
-                                            <label><%= translate("common:SUGGESTIONS") %></label>
+                                            <label>Suggestions</label>
                                             <select class="form-control" name="suggestions">
                                                 <% if(guild.plugins.suggestions && bot.channels.cache.has(guild.plugins.suggestions)){ %>
                                                     <option selected="selected">#<%= bot.channels.cache.get(guild.plugins.suggestions).name %></option>
                                                     <% guild.channels.cache.filter((ch) => ch.type === "text" && ch.id !== guild.plugins.suggestions).forEach((ch) => { %>
                                                         <option>#<%= ch.name %></option>
                                                     <% }); %>
-                                                        <option><%= translate("common:NO_CHANNEL") %></option>
+                                                        <option><o c%= translate(":NO_CHANNEL") %></option>
                                                 <% } else { %>
-                                                    <option selected="selected"><%= translate("common:NO_CHANNEL") %></option>
+                                                 <option selected="selected"><%= translate("common:NO_CHANNEL" %></option>
                                                     <% guild.channels.cache.filter((ch) => ch.type === "text").forEach((ch) => { %>
                                                         <option>#<%= ch.name %></option>
                                                     <% }); %>
@@ -255,7 +238,7 @@
                                             <button type="submit" name="goodbyeDisable" class="btn btn-danger"><%= translate("dashboard:DISABLE_MESSAGES") %></button>
                                             <button type="submit" name="goodbyeUpdate" class="btn btn-primary pull-right"><%= translate("common:UPDATE") %></button>
                                         <% } else { %>
-                                            <button type="submit" name="goodbyeEnable" class="btn btn-success"><%= translate("dashboard:ENABLE_MESSAGES") %></button>
+                                            <button type="submit" name="goodbyeEnable" class="btn btn-success"><nable %= translate("dashboard:ENABLE_MESSAGES") %></button>
                                         <% } %>
                                     </div>
                                 </form>
@@ -263,14 +246,14 @@
                             <!-- AUTOROLE CONFIGURATION -->
                             <div class="box box-warning">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title"><%= translate("dashboard:AUTOROLE_CONF") %></h3>
+                                    <h3 class="box-title">Autorole configuration</h3>
                                 </div>
                                 <form role="form" action="/manage/<%= guild.id %>/" method="POST">
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <!-- select -->
                                         <div class="form-group">
-                                            <label><%= translate("common:ROLE") %></label>
+                                            <label>Role</label>
                                             <select class="form-control" name="role">
                                                 <% if(guild.plugins.autorole.enabled && guild.roles.cache.has(guild.plugins.autorole.role)){ %>
                                                     <option selected="selected">@<%= guild.roles.cache.get(guild.plugins.autorole.role).name %></option>
@@ -288,10 +271,10 @@
                                     <!-- /.box-body -->
                                     <div class="box-footer">
                                         <% if(guild.plugins.autorole.enabled){ %>
-                                            <button type="submit" name="autoroleDisable" class="btn btn-danger"><%= translate("dashboard:DISABLE_AUTOROLE") %></button>
-                                            <button type="submit" name="autoroleUpdate" class="btn btn-primary pull-right"><%= translate("common:UPDATE") %></button>
+                                            <button type="submit" name="autoroleDisable" class="btn btn-danger">Disable Autorole</button>
+                                            <button type="submit" name="autoroleUpdate" class="btn btn-primary pull-right">Update</button>
                                         <% } else { %>
-                                            <button type="submit" name="autoroleEnable" class="btn btn-success"><%= translate("dashboard:ENABLE_AUTOROLE") %></button>
+                                            <button type="submit" name="autoroleEnable" class="btn btn-success">Enable Autorole</button>
                                         <% } %>
                                     </div>
                                 </form>
