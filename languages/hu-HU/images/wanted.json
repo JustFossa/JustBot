@@ -1,5 +1,0 @@
-{
-    "DESCRIPTION": "\"wanted\" képet generálok az Nekobot API használatával",
-    "USAGE": "{{prefix}}wanted (@tag)",
-    "EXAMPLES": "{{prefix}}wanted\n{{prefix}}wanted @Androz#2091"
-}

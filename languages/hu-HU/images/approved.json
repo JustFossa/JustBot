@@ -1,5 +1,0 @@
-{
-    "DESCRIPTION": "\"jóváhagyott\" kép generálása",
-    "USAGE": "{{prefix}}approved (@tag)",
-    "EXAMPLES": "{{prefix}}approved\n{{prefix}}approved @Androz#2091"
-}

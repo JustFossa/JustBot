@@ -1,5 +1,0 @@
-{
-    "DESCRIPTION": "INekobot API sını kullanarak \"captcha\" oluştur",
-    "USAGE": "{{prefix}}captcha (@üye)",
-    "EXAMPLES": "{{prefix}}captcha\n{{prefix}}captcha @Androz#2091"
-}

@@ -1,7 +1,0 @@
-{
-    "DESCRIPTION": "Carregue o seu texto no hastebin!",
-    "USAGE": "{{prefix}}hastebin [text]",
-    "EXAMPLES": "{{prefix}}hastebin Olá Mundo!",
-    "MISSING_TEXT": "Por favor, insira um texto válido!",
-    "SUCCESS": "Envio completo!"
-}

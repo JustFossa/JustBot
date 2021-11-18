@@ -1,8 +1,0 @@
-{
-    "DESCRIPTION": "Shows Atlanta's Github repository information!",
-    "USAGE": "{{prefix}}github",
-    "EXAMPLES": "{{prefix}}github",
-    "CLICK_HERE": "Klik hier om toegang te krijgen tot de Github van Atlanta",
-    "LANGUAGE": "Programmeertaal",
-    "OWNER": "De eigenaar van de repository van Atlanta"
-}

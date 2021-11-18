@@ -1,5 +1,0 @@
-{
-    "DESCRIPTION": "\"gyönyörű\" kép generálása",
-    "USAGE": "{{prefix}}beautiful (@tag)",
-    "EXAMPLES": "{{prefix}}beautiful\n{{prefix}}beautiful @Androz#2091"
-}

@@ -1,6 +1,0 @@
-{
-    "DESCRIPTION": "INekobot API sını kullanarak \"Clyde\" mesajı oluştur",
-    "USAGE": "{{prefix}}clyde [text]",
-    "EXAMPLES": "{{prefix}}clyde Discord 11 Aralık 2002 de kapatılacak.",
-    "MISSING_TEXT": "Lütfen uygun bir mesaj gir!"
-}
