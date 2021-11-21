@@ -12,24 +12,18 @@ module.exports = {
 
     async execute(interaction) {
         if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES, Permissions.FLAGS.MANAGE_GUILD)) {
-            return interaction.reply({
-                content: "You cant use that"
-            })
-        }
+            return interaction.reply({ content: "You cant use that" })
+        
 
       const role = interaction.options.getRole("role")
 	  const description = interaction.options.getString("description") || null
 	  const emoji = interaction.options.getString("emoji") || null
 
 	if(role.position >= interaction.guild.me.roles.highest.position) {
-		return interaction.reply({
-			content: "I cant assign tole that is higher or equal to me"
-		})
-
+		return interaction.reply({ content: "I cant assign tole that is higher or equal to me" })
 	}
 
 	let guildData = await rrModel.findOne({ guildId: interaction.guild.id })
-
 	let newRole = {
 		roleId: role.id,
 		description,
@@ -56,7 +50,6 @@ module.exports = {
 
 await interaction.reply({
    content: `Created a new role: ${role}`
-})
-			
-}
+})		
+	}
 }
