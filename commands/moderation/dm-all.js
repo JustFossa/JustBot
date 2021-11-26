@@ -21,10 +21,15 @@ module.exports = {
 const members = []
 
 await interaction.guild.members.fetch({ force: true }).then((v) => {
+
             v.forEach((gm) =>{
-							
+							try{
+								if(!gm.bot) return
                 gm.send(message)
  members.push(gm)
+							} catch (err) {
+								console.log(err)
+							}
 	}		
 						)})
 

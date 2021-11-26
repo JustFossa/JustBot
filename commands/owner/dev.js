@@ -8,7 +8,7 @@ module.exports = {
 	.setDescription('Puts Bot into dev status')
 	.addStringOption(option => option.setName("value").setDescription("status to set dev status to (true / false)")),
 
-   async execute: (interaction, client) {
+   async execute(interaction, client) {
 
 
 	if(interaction.user.id !== "729224025401851915") {
