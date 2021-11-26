@@ -13,7 +13,7 @@ module.exports = {
     async execute(interaction) {
         if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES, Permissions.FLAGS.MANAGE_GUILD)) {
             return interaction.reply({ content: "You cant use that" })
-        
+		}
 
       const role = interaction.options.getRole("role")
 	  const description = interaction.options.getString("description") || null
