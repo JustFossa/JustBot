@@ -6,8 +6,7 @@ module.exports = {
      data: new SlashCommandBuilder()
         .setName("warn")
         .setDescription("Allows you to warn specified member")
-        .addSubcommand(command => command.setName("list")
-            .setDescription("Sends a list of target's warnings"))
+        
         .addUserOption(option => option.setName("target")
             .setDescription("The user you want to warn")
             .setRequired(true))
@@ -29,14 +28,14 @@ module.exports = {
         })
 
         if(!data) {
-            const newData = new warnSchema({
+            const newData = await new warnSchema({
                 guildId: interaction.guild.id,
                 memberId: member.id,
                 warns: 1
             })
             newData.save()
         } else if(data) {
-            warnSchema.findOneAndUpdate({guildId: interaction.guild.id, memberId: member.id}, {
+           await warnSchema.findOneAndUpdate({guildId: interaction.guild.id, memberId: member.id}, {
                 warns: data.warns + 1
             })
         }
