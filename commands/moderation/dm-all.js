@@ -19,19 +19,20 @@ module.exports = {
 
 
 const members = []
-
+try{
 await interaction.guild.members.fetch({ force: true }).then((v) => {
 
             v.forEach((gm) =>{
-							try{
-								if(!gm.bot) return
+							
+						
                 gm.send(message)
  members.push(gm)
-							} catch (err) {
-								console.log(err)
-							}
+					
 	}		
 						)})
+		} catch(err) {
+	     console.log(err)
+		}
 
 			const embed = new MessageEmbed()
 			.setTitle("Message Sent")
