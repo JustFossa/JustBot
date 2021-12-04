@@ -11,7 +11,7 @@ module.exports = {
     .setDescription("Emits guildCreate command")),
 	
    async execute(interaction, client) {
-     if(interaction.user.id !== "729224025401851915") interaction.reply({
+     if(interaction.user.id !== "729224025401851915") return interaction.reply({
      content: "You cant use that"
      }) 
      
