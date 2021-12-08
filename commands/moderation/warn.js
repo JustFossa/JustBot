@@ -6,23 +6,34 @@ module.exports = {
      data: new SlashCommandBuilder()
         .setName("warn")
         .setDescription("Allows you to warn specified member")
-            .addSubcommand(command => command.setName("list")
-                .setDescription("Lists all user's warnings")
-                    .addUserOption(option => option.setName("user")
-                        .setDescription("The user you want to list warns of"))
-                            .setRequired(true))
+        .addSubcommand(command => command.setName("add")
+            .setDescription("Warns user")
         .addUserOption(option => option.setName("target")
             .setDescription("The user you want to warn")
             .setRequired(true))
         .addStringOption(option => option.setName("reason")
             .setDescription("Why do you want to warn the user?")
-            .setRequired(true)),
+            .setRequired(true)))
+        .addSubcommand(command => command.setName("list")
+            .setDescription("Lists all user's warnings")
+                .addUserOption(option => option.setName("user")
+                    .setDescription("The user you want to list warns of")
+                        .setRequired(true)))
+        .addSubcommand(command => command.setName("info")
+            .setDescription("Shows info about warning with specified id")
+            .addStringOption(option => option.setName("warnid")
+                .setDescription("The id of warn (Not member)")
+                    .setRequired(true))),
     async execute(interaction, client) {
         if(!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
             return interaction.reply({
                 content: "You cant use that"
             })
         }
+
+    if(interaction.options.getSubcommand() === "add") {
+
+    
         const member = interaction.options.getMember("target")
         const reason = interaction.options.getString("reason") || "No Reason Provided!"
 
@@ -40,6 +51,7 @@ module.exports = {
 
         if(!data) {
             const newData = await new warnSchema({
+                _id: interaction.guild.id,
                 guildId: interaction.guild.id,
                 memberId: member.id,
                 warns: newWarn
@@ -47,6 +59,7 @@ module.exports = {
             newData.save()
         } else if(data) {
            data.warns = [...data.warns, newWarn]
+           await data.save()
         }
 
         const embed = new MessageEmbed()
@@ -54,46 +67,78 @@ module.exports = {
             .setDescription(`**Member:** \`${member}\` was warned \n **Reason:** \`${reason}\` \n **Warn ID:** \`${warnId}\` \n **Staff:** \`${interaction.member}\``)
             .setColor("RED")
             .setTimestamp()
+            .setFooter("JustBot moderation")
       await  interaction.reply({
             embeds: [embed]
         })
+    }
 
         if (interaction.options.getSubcommand() === "list") {
             const member = interaction.options.getMember("user")
             
-            const warnlist = new MessageEmbed()
-                .setTitle(`${member}'s warnings`)
-                .setDescription("This is list of " + member + "'s warnings")
+            var warnlist = new MessageEmbed()
+                .setTitle(`${member.user.tag}'s warnings`)
+                .setDescription("This is list of " + member.user.tag + "'s warnings")
                 .setColor("RED")
                 .setTimestamp()
                 .setFooter("JustBot moderation")
             
-            const data = warnSchema.findOne({
+            const data = await warnSchema.findOne({
                 guildId: interaction.guild.id,
                 memberId: member.id
             })
 
             if(data) {
-                data.warns.forEach(warn => {
-                    const reason = warn.reason
-                       const reasonSubstr = reason.length > 1023 ? reason.substr(0, 1020) : reason
-                       const finalReason = reasonSubstr + "..."
+                for(warn of data.warns) {
+                    let reason = warn.reason.length > 50 ? warn.reason.substr(0, 50) + "..." : warn.reason
                     
-                    warnlist.addField({
-                        name: warn.warnId,
-                        value: reasonSubstr
-                    })
-                })
-            } else {
+                    const id = warn.warnId
+                    warnlist.addField(
+                        `\`${id}\``,
+                        `\`${reason}\``
+                    )
+                }
+            } else if(!data){
                 warnlist.addField({
                     name:"No warnings",
                     value: "This user haven't been warned yet"
                 })
             }
+            interaction.reply({
+                embeds: [warnlist]
+            })
         }
-        interaction.reply({
-            embeds: [warnlist]
-        })
+
+        if(interaction.options.getSubcommand() === "info") {
+            const caseId = interaction.options.getString("warnid")
+
+            const data = await warnSchema.findById(interaction.guild.id)
+
+            const guildWarns = data.warns
+            
+            const warn = guildWarns.filter(warn => warn.warnId === caseId)
+            console.log(guildWarns)
+            if(warn.length === 0) {
+                return interaction.reply({
+                    content: "There is no warning with this ID!"
+                })
+            } else {
+                const reason = warn[0].reason
+                const id = warn[0].warnId
+                const embed = new MessageEmbed()
+                .setTitle("Warn info")
+                .setDescription(`**Warn ID:** \`${id}\` \n**Reason:** \`${reason}\` `)
+                .setColor("BLURPLE")
+                .setFooter("JustBot moderation")
+
+                interaction.reply({
+                    embeds: [embed]
+                })
+            }
+        }
+        
+        
+
     }
  }
 

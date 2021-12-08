@@ -7,11 +7,18 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES,
 Intents.FLAGS.GUILD_VOICE_STATES] 
 })
-
+const { DisTube } = require("distube")
+const { SpotifyPlugin } = require("@distube/spotify")
 client.commands = new Collection()
 client.aliasses = new Collection()
 client.legacyCommands = new Collection()
 client.usages = new Collection()
+client.distube = new DisTube(client, {
+  emitNewSongOnly: true,
+  leaveOnFinish: true,
+  emitAddSongWhenCreatingQueue: false,
+  plugins: [new SpotifyPlugin()]
+})
 module.exports.client = client
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith('.js'))
 
