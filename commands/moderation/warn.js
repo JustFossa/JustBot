@@ -60,7 +60,7 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === "list") {
             const member = interaction.options.getMember("user")
-
+            
             const warnlist = new MessageEmbed()
                 .setTitle(`${member}'s warnings`)
                 .setDescription("This is list of " + member + "'s warnings")
@@ -75,9 +75,13 @@ module.exports = {
 
             if(data) {
                 data.warns.forEach(warn => {
+                    const reason = warn.reason
+                       const reasonSubstr = reason.length > 1023 ? reason.substr(0, 1020) : reason
+                       const finalReason = reasonSubstr + "..."
+                    
                     warnlist.addField({
                         name: warn.warnId,
-                        value: warn.reason
+                        value: reasonSubstr
                     })
                 })
             } else {
