@@ -117,14 +117,7 @@ client.on("messageCreate",async message => {
 				commands.run(client, message, args, prefix)
 	}	
 
-  if(message.content.includes("?" ||"¿")) {
-    if(message.author.id !== "558684577506525195") return
-    await wait(2000)
-    message.delete()
-
-   
-
-  }
+ 
 })
 
 

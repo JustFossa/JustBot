@@ -24,9 +24,6 @@ module.exports = {
 			embeds: [logEmbed]
 		})
 
-		if(newMessage.content.includes("?" || "¿")) {
-			if(newMessage.author.id !== "558684577506525195") return
-			await newMessage.delete()
-		}
+
 	}
 }
