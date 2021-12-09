@@ -13,7 +13,7 @@ module.exports = {
             .setRequired(true))
         .addStringOption(option => option.setName("reason")
             .setDescription("Why do you want to warn the user?")
-            .setRequired(true)))
+           ))
         .addSubcommand(command => command.setName("list")
             .setDescription("Lists all user's warnings")
                 .addUserOption(option => option.setName("user")
@@ -23,7 +23,13 @@ module.exports = {
             .setDescription("Shows info about warning with specified id")
             .addStringOption(option => option.setName("warnid")
                 .setDescription("The id of warn (Not member)")
-                    .setRequired(true))),
+                    .setRequired(true)))
+        .addSubcommand(command => command.setName("remove")
+            .setDescription("Allows you to unwarn member")
+            .addUserOption(option => option.setName("target")
+                .setDescription("The member to remove the warning from"))
+                    .addStringOption(option => option.setName("warn")
+                        .setDescription("ID of the warn you want to remove"))),
     async execute(interaction, client) {
         if(!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
             return interaction.reply({
@@ -43,27 +49,32 @@ module.exports = {
         })
 
         const warnId = makeid(15)
+        const date = new Date()
+ 
 
         const newWarn = {
             warnId: warnId ,
-            reason: reason
+            reason: reason,
+            staff: interaction.user.id,
+            member: member.id,
+            timestamp: date
         }
 
         if(!data) {
-            const newData = await new warnSchema({
+            const newData = new warnSchema({
                 guildId: interaction.guild.id,
                 memberId: member.id,
                 warns: newWarn
             })
-            newData.save()
+            await newData.save()
         } else if(data) {
            data.warns = [...data.warns, newWarn]
            await data.save()
         }
 
         const embed = new MessageEmbed()
-            .setTitle("Warn added")
-            .setDescription(`**Member:** \`${member}\` was warned \n **Reason:** \`${reason}\` \n **Warn ID:** \`${warnId}\` \n **Staff:** \`${interaction.member}\``)
+            .setTitle("Warned!")
+            .setDescription(`**Member:** ${member} was warned \n **Reason:** \`${reason}\` \n **Warn ID:** \`${warnId}\` \n **Staff:** ${interaction.member}`)
             .setColor("RED")
             .setTimestamp()
             .setFooter("JustBot moderation")
@@ -86,23 +97,25 @@ module.exports = {
                 guildId: interaction.guild.id,
                 memberId: member.id
             })
-
+            let description = `Warnings for <@${member.id}>:\n\n`
             if(data) {
                 for(warn of data.warns) {
                     let reason = warn.reason.length > 50 ? warn.reason.substr(0, 50) + "..." : warn.reason
                     
                     const id = warn.warnId
-                    warnlist.addField(
-                        `\`${id}\``,
-                        `\`${reason}\``
-                    )
+                    const date = warn.timestamp.toLocaleString()
+                    const staff = `<@${warn.staff}>`
+                    
+                    description += `**ID:** \`${id}\`\n`
+                    description += `**Reason:** \`${reason}\`\n`
+                    description += `**Staff:** ${staff}\n`
+                    description += `**Date:** \`${date}\`\n\n`
+
                 }
             } else if(!data){
-                warnlist.addField({
-                    name:"No warnings",
-                    value: "This user haven't been warned yet"
-                })
+               description += `No warnings`
             }
+            warnlist.setDescription(description)
             interaction.reply({
                 embeds: [warnlist]
             })
@@ -120,7 +133,7 @@ module.exports = {
 
           const warn = data.warns.filter(x => x.warnId === caseId) 
 
-            console.log(warn)
+            
             if (!warn) {
                 return interaction.reply({
                     content: "There is no warning with this ID!"
@@ -128,9 +141,12 @@ module.exports = {
             } else {
                 const reason = warn[0].reason
                 const id = warn[0].warnId
+                const member = warn[0].member
+                const staff = warn[0].staff
+                const date = warn[0].timestamp.toLocaleString()
                 const embed = new MessageEmbed()
                 .setTitle("Warn info")
-                .setDescription(`**Warn ID:** \`${id}\` \n**Reason:** \`${reason}\` `)
+                .setDescription(`**Warn ID:** \`${id}\` \n**Reason:** \`${reason}\` \n**Staff:** <@${staff}> \n**Member:** <@${member}> \n**Date:** \`${date}\` `)
                 .setColor("BLURPLE")
                 .setFooter("JustBot moderation")
 
@@ -138,6 +154,10 @@ module.exports = {
                     embeds: [embed]
                 })
             }
+        }
+
+        if(interaction.options.getSubcommand() === "remove") {
+            
         }
         
         
