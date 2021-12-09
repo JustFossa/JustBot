@@ -26,10 +26,13 @@ module.exports = {
                     .setRequired(true)))
         .addSubcommand(command => command.setName("remove")
             .setDescription("Allows you to unwarn member")
-            .addUserOption(option => option.setName("target")
-                .setDescription("The member to remove the warning from"))
+            .addUserOption(option => option.setName("member")
+                .setDescription("The member to remove the warning from")
+                .setRequired(true))
                     .addStringOption(option => option.setName("warn")
-                        .setDescription("ID of the warn you want to remove"))),
+                        .setDescription("ID of the warn you want to remove")
+                        .setRequired(true))),
+                        
     async execute(interaction, client) {
         if(!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
             return interaction.reply({
@@ -74,7 +77,7 @@ module.exports = {
 
         const embed = new MessageEmbed()
             .setTitle("Warned!")
-            .setDescription(`**Member:** ${member} was warned \n **Reason:** \`${reason}\` \n **Warn ID:** \`${warnId}\` \n **Staff:** ${interaction.member}`)
+            .setDescription(`**Member:** ${member} was warned \n> **Reason:** \`${reason}\` \n> **Warn ID:** \`${warnId}\` \n> **Staff:** ${interaction.member}`)
             .setColor("RED")
             .setTimestamp()
             .setFooter("JustBot moderation")
@@ -157,7 +160,33 @@ module.exports = {
         }
 
         if(interaction.options.getSubcommand() === "remove") {
+            const member = interaction.options.getMember("member")
+            const caseId = interaction.options.getString("warn")
+
+            const data = await warnSchema.findOne({
+                guildId: member.guild.id,
+                memberId: member.id,
+            })
+            const warn = data.warns.filter(x => x.warnId === caseId)
+            if(warn.length < 1) {
+                interaction.reply({
+                    content: "There is no warning with this ID for provided member!",
+                    ephemeral: true
+                })
+            } else {
+                const filteredWarns = data.warns.filter(x => x.warnId !== caseId)
+                data.warns = filteredWarns
+                await data.save()
+                const embed = new MessageEmbed()
+                .setTitle("Warn Removed")
+                .setDescription(`**Member:** <@${member.id}>\n**Removed By:** ${interaction.user}\n> **Reason of Warn:** \`${warn[0].reason}\`\n> **ID:** \`${caseId}\`\n> **Warned by:** <@${warn[0].staff}>\n> **Date:** \`${warn[0].timestamp.toLocaleString()}\``)
+                .setColor("GREEN")
+                .setFooter("JustBot moderation")            
             
+                interaction.reply({
+                    embeds: [embed]
+                })
+            }
         }
         
         

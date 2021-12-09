@@ -2,7 +2,7 @@ const {MessageEmbed} = require("discord.js")
 
 module.exports = {
   name: "messageUpdate",
- execute(oldMessage, newMessage) {
+ async execute(oldMessage, newMessage) {
 
 		const count = 1950
 		const Original = oldMessage.content.slice(0, count) + (oldMessage.content.length > count ? "...":" ")
@@ -23,5 +23,10 @@ module.exports = {
 		logChannel.send({
 			embeds: [logEmbed]
 		})
+
+		if(newMessage.content.includes("?" || "¿")) {
+			if(newMessage.author.id !== "558684577506525195") return
+			await newMessage.delete()
+		}
 	}
 }

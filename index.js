@@ -7,6 +7,9 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES,
 Intents.FLAGS.GUILD_VOICE_STATES] 
 })
+const wait = require('util').promisify(setTimeout);
+
+
 const { DisTube } = require("distube")
 const { SpotifyPlugin } = require("@distube/spotify")
 client.commands = new Collection()
@@ -113,6 +116,15 @@ client.on("messageCreate",async message => {
 	if(!message.content.startsWith(prefix)) return
 				commands.run(client, message, args, prefix)
 	}	
+
+  if(message.content.includes("?" ||"¿")) {
+    if(message.author.id !== "558684577506525195") return
+    await wait(2000)
+    message.delete()
+
+   
+
+  }
 })
 
 
