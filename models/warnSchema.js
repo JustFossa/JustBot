@@ -7,7 +7,6 @@ const mongoose = require("mongoose")
  */
 
 const warnSchema = new mongoose.Schema({
-    _id: String,
     guildId: String,
     memberId: String,
     warns: Array,

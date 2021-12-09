@@ -51,7 +51,6 @@ module.exports = {
 
         if(!data) {
             const newData = await new warnSchema({
-                _id: interaction.guild.id,
                 guildId: interaction.guild.id,
                 memberId: member.id,
                 warns: newWarn
@@ -112,13 +111,17 @@ module.exports = {
         if(interaction.options.getSubcommand() === "info") {
             const caseId = interaction.options.getString("warnid")
 
-            const data = await warnSchema.findById(interaction.guild.id)
-
-            const guildWarns = data.warns
             
-            const warn = guildWarns.filter(warn => warn.warnId === caseId)
-            console.log(guildWarns)
-            if(warn.length === 0) {
+					const data = await warnSchema.findOne({
+						guildId: interaction.guild.id,
+						"warns.warnId": caseId
+					})
+
+
+          const warn = data.warns.filter(x => x.warnId === caseId) 
+
+            console.log(warn)
+            if (!warn) {
                 return interaction.reply({
                     content: "There is no warning with this ID!"
                 })
