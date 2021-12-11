@@ -116,7 +116,7 @@ module.exports = {
 
                 }
             } else if(!data){
-               description += `No warnings`
+               description = `This member has no warnings warnings`
             }
             warnlist.setDescription(description)
             interaction.reply({

@@ -6,8 +6,14 @@ module.exports = {
 	.setName("settings")
 	.setDescription("Allows you to change settings for your guild")
 	.addSubcommand(command => command.setName("welcomechannel")
-		.setDescription("Change / set channel to set welcome messages")					.addChannelOption(option => option.setName("channel")
-		.setDescription("Channel to send welcome messages to")																																				)),
+		.setDescription("Change / set channel to set welcome messages")	
+			.addChannelOption(option => option.setName("channel")
+		.setDescription("Channel to send welcome messages to")
+			.setRequired(true)))
+	.addSubcommand(command => command.setName("logging")
+		.addBooleanOption(option => option.setName("status")
+			.setDescription("Enable / Disable logging")
+				.setRequired(true))),
 	async execute(interaction, client) {
 		const {member, options, guild} = interaction
 
@@ -40,5 +46,7 @@ const data = await settingsModel.findOne({
 				embeds: [embed]
 			})
 		}
+
+
 	}
 }
