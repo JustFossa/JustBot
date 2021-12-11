@@ -16,6 +16,7 @@ client.commands = new Collection()
 client.aliasses = new Collection()
 client.legacyCommands = new Collection()
 client.usages = new Collection()
+client.dashboard = require("./dashboard/app")
 client.distube = new DisTube(client, {
   emitNewSongOnly: true,
   leaveOnFinish: true,
@@ -120,6 +121,6 @@ client.on("messageCreate",async message => {
  
 })
 
-
+client.dashboard.load()
 
 client.login(process.env.TOKEN);

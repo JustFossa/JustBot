@@ -11,6 +11,7 @@ module.exports = {
 		.setDescription("Channel to send welcome messages to")
 			.setRequired(true)))
 	.addSubcommand(command => command.setName("logging")
+	.setDescription("Allows you to configure logging settings for your guild")
 		.addBooleanOption(option => option.setName("status")
 			.setDescription("Enable / Disable logging")
 				.setRequired(true))),
