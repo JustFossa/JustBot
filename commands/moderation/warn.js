@@ -129,7 +129,6 @@ module.exports = {
 
             
 					const data = await warnSchema.findOne({
-						guildId: interaction.guild.id,
 						"warns.warnId": caseId
 					})
 
