@@ -14,7 +14,7 @@ module.exports = {
             .addNumberOption(option => option.setName("percent")
                     .setDescription("10 = 10%")
                         .setRequired(true)))
-        .addSubcommand(command => command.setName("settings")
+        .addSubcommand(command => command.setName("options")
             .setDescription("Select an option to configure")
                 .addStringOption(option => option.setName("option")
                     .setDescription("Select an option")
@@ -78,7 +78,7 @@ async execute(interaction, client) {
                     })
                 }
 
-                switch(options.getString("options")) {
+                switch(options.getString("option")) {
                     case "skip" : {
                         await queue.skip(voiceChannel)
                         return interaction.reply({
