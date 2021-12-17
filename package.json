@@ -2,6 +2,9 @@
   "scripts": {
     "start": "node sharding.js"
   },
+  "engines": {
+    "node":"16.6.0"
+  },
   "dependencies": {
     "@discordjs/builders": "^0.8.2",
     "@discordjs/opus": "^0.7.0",
