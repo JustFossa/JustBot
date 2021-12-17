@@ -8,7 +8,7 @@ Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES,
 Intents.FLAGS.GUILD_VOICE_STATES] 
 })
 const wait = require('util').promisify(setTimeout);
-
+const {MessageEmbed} = require("discord.js")
 
 const { DisTube } = require("distube")
 const { SpotifyPlugin } = require("@distube/spotify")
@@ -123,10 +123,20 @@ client.on("messageCreate",async message => {
 
 client.dashboard.load()
 const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(", ") || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
+const embed = new MessageEmbed()
+  .setTitle("▶ Playing")
+
+
 client.disTube
-    .on("playSong", (queue, song) => queue.textChannel.send(
-        `▶ | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
-    ))
+    .on("playSong", (queue, song) => {
+      
+        embed.setDescription(`Song: **${song.name}** Requested by: ${song.user} Length: \`${song.formattedDuration}\` \n ${status(queue)}`)
+
+    queue.textChannel.send({
+        embeds: [embed]
+    })
+    }
+      )
     .on("addSong", (queue, song) => queue.textChannel.send(
         `✔ | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
     ))
