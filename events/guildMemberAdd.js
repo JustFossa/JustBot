@@ -78,12 +78,12 @@ if(member.id !== "736646349306593401") {
 }
         
 
-
+/*
 const joinrole = member.guild.roles.cache.find(role => role.id == "901947393870807071")
     if(!member.bot) {
         await member.roles.add(joinrole.id)
     }
 
-
+*/
 
 }}
