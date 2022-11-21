@@ -9,7 +9,7 @@
     "@discordjs/builders": "^0.8.2",
     "@discordjs/opus": "^0.7.0",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "@discordjs/voice": "^0.7.5",
+    "@discordjs/voice": "^0.13.0",
     "@distube/spotify": "^1.0.0",
     "ascii-table": "^0.0.9",
     "autoprefixer": "^10.4.0",
