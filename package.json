@@ -6,7 +6,7 @@
     "node": "16.6.0"
   },
   "dependencies": {
-    "@discordjs/builders": "^0.8.2",
+    "@discordjs/builders": "^0.16.0",
     "@discordjs/opus": "^0.7.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "@discordjs/voice": "^0.14.0",
